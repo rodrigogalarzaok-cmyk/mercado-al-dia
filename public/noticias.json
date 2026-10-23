@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-23T02:33:36.836Z",
+  "actualizado": "2026-10-23T02:35:03.186Z",
   "secciones": {
     "eeuu": {
       "precios": [
@@ -632,14 +632,14 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4028.3,
-          "variacion": -0.791,
+          "precio": 4028.9,
+          "variacion": -0.776,
           "unidad": "US$"
         },
         {
           "nombre": "Brent",
-          "precio": 113.96,
-          "variacion": 0.698,
+          "precio": 114.03,
+          "variacion": 0.76,
           "unidad": "US$"
         },
         {
@@ -650,8 +650,8 @@
         },
         {
           "nombre": "Bitcoin",
-          "precio": 81725.41,
-          "variacion": -1.36,
+          "precio": 81761.83,
+          "variacion": -1.316,
           "unidad": "US$"
         },
         {
@@ -765,6 +765,31 @@
           "fijada": false
         },
         {
+          "titulo": "Ibovespa tiene fuerte caída y el dólar y las tasas de interés futuras suben con la presión externa y las elecciones en el foco",
+          "resumen": "El Ibovespa ha caído bruscamente y el dólar y las tasas de interés futuras aumentan con la presión externa y las elecciones en el foco. Los temores relacionados con las inversiones en IA hacen que el índice Nasdaq se…",
+          "link": "https://valor.globo.com/financas/ao-vivo/2023/06/16/dolar-avanca-e-ibovespa-recua-em-dia-de-correcao-siga-os-mercados.ghtml",
+          "fuente": "Valor Econômico",
+          "imagen": "https://s2-valor.glbimg.com/sdBNj5MJuMooCUk6g3W6vLEsrgU=/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2026/3/9/4Kdk7vRfymynO0AMBzqg/116615695-lulaeflaviobolsonaroemsabatinadaglobofotoglobo-manoellamello.jpg",
+          "fecha": "2026-10-22T20:29:42.000Z",
+          "tag": "Tasas",
+          "nivel": 1,
+          "medios": 2,
+          "puntaje": 67,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 13,
+            "gigante": 0,
+            "frescura": 6,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "fijada": false
+        },
+        {
           "titulo": "El petróleo Brent sube 4% y supera los 113 dólares, precio más alto desde mayo",
           "resumen": "Los precios del petróleo cerraron al alza, y el Brent, el índice de referencia mundial, alcanzó los 113 dólares por barril por primera vez desde mayo y se encamina a la tercera semana consecutiva de aumentos. Nuevos…",
           "link": "https://valor.globo.com/financas/noticia/2026/10/22/petroleo-brent-sobe-4percent-e-supera-us-113-maior-preco-desde-maio.ghtml",
@@ -807,31 +832,6 @@
             "frescura": 7,
             "soloArgentinos": 0,
             "bolsa": 0,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "fijada": false
-        },
-        {
-          "titulo": "Ibovespa tiene fuerte caída y el dólar y las tasas de interés futuras suben con la presión externa y las elecciones en el foco",
-          "resumen": "El Ibovespa ha caído bruscamente y el dólar y las tasas de interés futuras aumentan con la presión externa y las elecciones en el foco. Los temores relacionados con las inversiones en IA hacen que el índice Nasdaq se…",
-          "link": "https://valor.globo.com/financas/ao-vivo/2023/06/16/dolar-avanca-e-ibovespa-recua-em-dia-de-correcao-siga-os-mercados.ghtml",
-          "fuente": "Valor Econômico",
-          "imagen": "https://s2-valor.glbimg.com/sdBNj5MJuMooCUk6g3W6vLEsrgU=/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2026/3/9/4Kdk7vRfymynO0AMBzqg/116615695-lulaeflaviobolsonaroemsabatinadaglobofotoglobo-manoellamello.jpg",
-          "fecha": "2026-10-22T20:29:42.000Z",
-          "tag": "Tasas",
-          "nivel": 1,
-          "medios": 1,
-          "puntaje": 62,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 8,
-            "gigante": 0,
-            "frescura": 6,
-            "soloArgentinos": 0,
-            "bolsa": 8,
             "elecciones": 0,
             "empresa": 0,
             "noInversion": 0,
@@ -968,6 +968,18 @@
     },
     {
       "pais": "us",
+      "fecha": "2026-10-30",
+      "hora": "09:30",
+      "evento": "Costo laboral"
+    },
+    {
+      "pais": "us",
+      "fecha": "2026-11-03",
+      "hora": "12:00",
+      "evento": "Ofertas de empleo (JOLTS)"
+    },
+    {
+      "pais": "us",
       "fecha": "2026-11-04",
       "hora": "10:30",
       "evento": "Balanza comercial"
@@ -977,6 +989,12 @@
       "fecha": "2026-11-05",
       "hora": "10:30",
       "evento": "Pedidos de subsidio por desempleo"
+    },
+    {
+      "pais": "us",
+      "fecha": "2026-11-06",
+      "hora": "10:30",
+      "evento": "Informe de empleo y desempleo"
     },
     {
       "pais": "ar",
@@ -989,6 +1007,12 @@
       "fecha": "2026-11-06",
       "hora": "16:00",
       "evento": "Actividad de la construcción de septiembre"
+    },
+    {
+      "pais": "us",
+      "fecha": "2026-11-10",
+      "hora": "10:30",
+      "evento": "Inflación (IPC)"
     },
     {
       "pais": "us",
@@ -1007,6 +1031,12 @@
       "fecha": "2026-11-12",
       "hora": "16:00",
       "evento": "Canasta básica de octubre"
+    },
+    {
+      "pais": "us",
+      "fecha": "2026-11-13",
+      "hora": "10:30",
+      "evento": "Inflación mayorista (IPP)"
     },
     {
       "pais": "ar",
@@ -1058,9 +1088,21 @@
     },
     {
       "pais": "us",
+      "fecha": "2026-12-01",
+      "hora": "12:00",
+      "evento": "Ofertas de empleo (JOLTS)"
+    },
+    {
+      "pais": "us",
       "fecha": "2026-12-03",
       "hora": "10:30",
       "evento": "Pedidos de subsidio por desempleo"
+    },
+    {
+      "pais": "us",
+      "fecha": "2026-12-04",
+      "hora": "10:30",
+      "evento": "Informe de empleo y desempleo"
     }
   ],
   "fuentes": {
