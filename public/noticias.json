@@ -1,12 +1,12 @@
 {
-  "actualizado": "2026-10-23T09:07:37.134Z",
+  "actualizado": "2026-10-23T14:41:37.744Z",
   "secciones": {
     "eeuu": {
       "precios": [
         {
           "nombre": "S&P 500",
-          "precio": 7663.43,
-          "variacion": -1.208,
+          "precio": 7629.57,
+          "variacion": -0.442,
           "unidad": ""
         },
         {
@@ -29,79 +29,79 @@
         },
         {
           "nombre": "Bono 10 años",
-          "precio": 4.953,
-          "variacion": -3.75,
+          "precio": 4.986,
+          "variacion": 0.666,
           "unidad": "%"
         },
         {
           "nombre": "Nasdaq",
-          "precio": 26008.86,
-          "variacion": -2.599,
+          "precio": 26025.65,
+          "variacion": 0.065,
           "unidad": ""
         }
       ],
       "suben": [
         {
-          "simbolo": "SPCX",
-          "nombre": "Space Exploration Technologies Corp. Class A Common Stock",
-          "precio": 159.31,
-          "variacion": 7.795
+          "simbolo": "SPOT",
+          "nombre": "Spotify Technology S.A. Ordinary Shares",
+          "precio": 583.66,
+          "variacion": 11.101
         },
         {
-          "simbolo": "MSTR",
-          "nombre": "Strategy Inc Common Stock Class A",
-          "precio": 153.48,
-          "variacion": 7.539
+          "simbolo": "BX",
+          "nombre": "Blackstone Inc. Common Stock",
+          "precio": 118.75,
+          "variacion": 8.378
         },
         {
-          "simbolo": "BE",
-          "nombre": "Bloom Energy Corporation Class A Common Stock",
-          "precio": 238.53,
-          "variacion": 7.132
+          "simbolo": "ACN",
+          "nombre": "Accenture plc Class A Ordinary Shares (Ireland)",
+          "precio": 258.74,
+          "variacion": 7.692
         },
         {
-          "simbolo": "DDOG",
-          "nombre": "Datadog Inc. Class A Common Stock",
-          "precio": 273.09,
-          "variacion": 6.497
+          "simbolo": "NDAQ",
+          "nombre": "Nasdaq Inc. Common Stock",
+          "precio": 103.3,
+          "variacion": 7.47
         },
         {
-          "simbolo": "CIEN",
-          "nombre": "Ciena Corporation Common Stock",
-          "precio": 361.34,
-          "variacion": 5.67
+          "simbolo": "LMT",
+          "nombre": "Lockheed Martin Corporation Common Stock",
+          "precio": 589.91,
+          "variacion": 6.963
         }
       ],
       "bajan": [
         {
-          "simbolo": "T",
-          "nombre": "AT&T Inc.",
-          "precio": 21.91,
-          "variacion": -6.447
+          "simbolo": "MRNA",
+          "nombre": "Moderna Inc. Common Stock",
+          "precio": 202.63,
+          "variacion": -17.566
         },
         {
-          "simbolo": "NFLX",
-          "nombre": "Netflix Inc. Common Stock",
-          "precio": 65.04,
-          "variacion": -5.314
+          "simbolo": "LRCX",
+          "nombre": "Lam Research Corporation Common Stock",
+          "precio": 230.15,
+          "variacion": -11.756
         },
         {
-          "simbolo": "DASH",
-          "nombre": "DoorDash Inc. Class A Common Stock",
-          "precio": 184.45,
-          "variacion": -3.767
+          "simbolo": "LITE",
+          "nombre": "Lumentum Holdings Inc. Common Stock",
+          "precio": 752.54,
+          "variacion": -11.539
         },
         {
-          "simbolo": "BKNG",
-          "nombre": "Booking Holdings Inc. Common Stock",
-          "precio": 158.38,
-          "variacion": -3.38
+          "simbolo": "GEV",
+          "nombre": "GE Vernova Inc. Common Stock",
+          "precio": 827.42,
+          "variacion": -10.638
         },
         {
-          "simbolo": "AMT",
-          "nombre": "American Tower Corporation (REIT) Common Stock",
-          "precio": 177.64,
-          "variacion": -3.225
+          "simbolo": "KLAC",
+          "nombre": "KLA Corporation Common Stock",
+          "precio": 147.83,
+          "variacion": -9.545
         }
       ],
       "noticias": [
@@ -143,13 +143,13 @@
           "fecha": "2026-10-22T20:05:54.000Z",
           "tag": "Petróleo",
           "nivel": 1,
-          "medios": 1,
-          "puntaje": 72,
+          "medios": 2,
+          "puntaje": 73,
           "detalle": {
             "tema": 40,
-            "cobertura": 8,
+            "cobertura": 13,
             "gigante": 6,
-            "frescura": 4,
+            "frescura": 2,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 0,
@@ -164,48 +164,19 @@
           "fijada": false
         },
         {
-          "titulo": "Los precios del petróleo se enfrían desde máximos de 5 meses tras invocar Trump la Ley de Producción de Defensa",
-          "resumen": "Los precios del crudo bajan desde máximos de cinco meses tras la invocación por parte de Trump de la Ley de Producción de Defensa.",
-          "link": "https://es.investing.com/news/commodities-news/los-precios-del-petroleo-se-enfrian-desde-maximos-de-5-meses-tras-invocar-trump-la-ley-de-produccion-de-defensa-3886969",
-          "fuente": "Investing",
-          "imagen": "https://content-media.investing.com/news/LYNXMPEA5T0D5_M.jpg",
-          "fecha": "2026-10-23T03:41:37.000Z",
+          "titulo": "S&P 500 cae mientras persisten los temores por la IA y el petróleo alcanza los US$115",
+          "resumen": "El S&P 500 retrocede mientras el petróleo sube a 115 dólares, alimentando temores inflacionarios y dudas sobre IA.",
+          "link": "https://www.bloomberglinea.com/mercados/sp-500-cae-mientras-persisten-los-temores-por-la-ia-y-el-petroleo-alcanza-los-us115/",
+          "fuente": "Bloomberg Línea",
+          "imagen": "https://www.bloomberglinea.com/resizer/v2/HFGEKSYH6VBMNHJ47SW3LWLQNA.jpg?auth=279755ec0128a7d90353ad78aab43c2658bdbbfc0ca357d70965c571a2e8d21d&smart=true&width=1200&height=675",
+          "fecha": "2026-10-23T13:34:47.000Z",
           "tag": "Petróleo",
           "nivel": 1,
           "medios": 3,
-          "puntaje": 70,
+          "puntaje": 71,
           "detalle": {
             "tema": 40,
             "cobertura": 16,
-            "gigante": 0,
-            "frescura": 6,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 70,
-          "porQue": "bajada del crudo tras posible aumento de oferta por la Ley de Producción de Defensa",
-          "activos": "petróleo, Brent",
-          "estado": "hecho",
-          "fijada": false
-        },
-        {
-          "titulo": "Futuros del Nasdaq se mantienen estables mientras se detiene la venta masiva de IA",
-          "resumen": "Los futuros del Nasdaq se estabilizan tras la pausa de la venta masiva de acciones de IA, mientras suben los precios del petróleo.",
-          "link": "https://www.wsj.com/opinion/nasdaq-futures-steady-as-ai-selloff-pauses-275c6454?mod=rss_markets_main",
-          "fuente": "The Wall Street Journal",
-          "imagen": "https://images.wsj.net/im-85494827",
-          "fecha": "2026-10-23T08:57:29.000Z",
-          "tag": "Índices",
-          "nivel": 1,
-          "medios": 6,
-          "puntaje": 67,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 22,
             "gigante": 0,
             "frescura": 8,
             "soloArgentinos": 0,
@@ -215,26 +186,200 @@
             "noInversion": 0,
             "sinTema": 0
           },
-          "ia": 55,
-          "porQue": "pausa en la venta masiva de acciones de IA estabiliza futuros del Nasdaq",
-          "activos": "Nasdaq, acciones de IA, sector tecnológico",
+          "ia": 70,
+          "porQue": "Dudas sobre IA y alza del petróleo generan presión inflacionaria y reducen riesgo",
+          "activos": "S&P 500, petróleo, bonos corporativos",
           "estado": "hecho",
           "fijada": false
         },
         {
-          "titulo": "Los rendimientos del Tesoro de EE.UU. suben, el foco del mercado de bonos se mantiene en Francia",
-          "resumen": "Los rendimientos de los bonos del Tesoro suben tras una caída anterior, mientras la atención sigue en la agitación de los bonos franceses.",
-          "link": "https://www.wsj.com/finance/investing/u-s-treasury-yields-edge-up-bond-market-focus-to-stay-on-france-8b28a326?mod=rss_markets_main",
+          "titulo": "La búsqueda de Meta por capital de IA impacta a Wall Street",
+          "resumen": "Meta busca capital para IA y el Nasdaq cayó 2,6% mientras los rendimientos del Tesoro registraron su mayor caída desde 2023.",
+          "link": "https://www.wsj.com/finance/stocks/metas-hunt-for-ai-capital-strikes-a-raw-nerve-on-wall-street-e2de1601?mod=rss_markets_main",
           "fuente": "The Wall Street Journal",
-          "imagen": "https://images.wsj.net/im-49261360",
-          "fecha": "2026-10-23T06:17:00.000Z",
+          "imagen": "https://images.wsj.net/im-48221958",
+          "fecha": "2026-10-22T20:55:00.000Z",
+          "tag": "Índices",
+          "nivel": 1,
+          "medios": 1,
+          "puntaje": 71,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 8,
+            "gigante": 6,
+            "frescura": 2,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 78,
+          "porQue": "caída del Nasdaq y rendimientos del Tesoro tras anuncio de Meta sobre capital de IA",
+          "activos": "Nasdaq, bonos del Tesoro, acciones de tecnología",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
+          "titulo": "Wall Street registra pérdidas y los rendimientos de los bonos caen",
+          "resumen": "Wall Street en rojo; rendimientos de bonos bajan mientras inversores buscan refugio pese a sólidos reportes trimestrales.",
+          "link": "https://www.handelsblatt.com/finanzen/maerkte/marktberichte/dow-jones-sp-500-nasdaq-wall-street-notiert-im-minus-anleiherenditen-sinken/100264495.html",
+          "fuente": "Handelsblatt",
+          "imagen": "https://images.handelsblatt.com/P-73zvwpCO2y/cover/900/506/0/0/53/97/0.5/0.5/wall-street.jpeg",
+          "fecha": "2026-10-23T14:27:17.000Z",
           "tag": "Bonos",
           "nivel": 1,
           "medios": 4,
-          "puntaje": 67,
+          "puntaje": 70,
           "detalle": {
             "tema": 40,
             "cobertura": 19,
+            "gigante": 0,
+            "frescura": 8,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 65,
+          "porQue": "Caída de rendimientos de bonos y descenso de acciones reduce apetito por riesgo",
+          "activos": "acciones EE.UU., bonos del Tesoro",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
+          "titulo": "Wall Street cerró con fuertes caídas: el Nasdaq perdió 2,58% por las dudas sobre el costo de la expansión en inteligencia artificial",
+          "resumen": "El Nasdaq cae su peor jornada desde junio al 26.009 puntos, tras balances que aumentan la inquietud por el costo de expansión en IA.",
+          "link": "https://www.infobae.com/estados-unidos/2026/10/22/wall-street-cerro-con-fuertes-caidas-el-nasdaq-perdio-258-por-las-dudas-sobre-el-costo-de-la-expansion-en-inteligencia-artificial/",
+          "fuente": "Infobae",
+          "imagen": "https://www.infobae.com/resizer/v2/DVDRPGXUMVFQHKQ3URPB3VWCWQ.JPG?auth=65e48dbfb65a18eaec74eeae54bcbfdfd686cf06ee4e2758febbd8047dcaca43&smart=true&width=5675&height=3783",
+          "fecha": "2026-10-22T23:54:52.000Z",
+          "tag": "Índices",
+          "nivel": 1,
+          "medios": 4,
+          "puntaje": 69,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 19,
+            "gigante": 0,
+            "frescura": 3,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 68,
+          "porQue": "Incertidumbre sobre financiamiento de centros de datos pesa sobre el sector tecnológico",
+          "activos": "Nasdaq, acciones tecnológicas",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
+          "titulo": "La actividad empresarial de EE.UU. se enfría en octubre mientras la demanda impulsa la inflación",
+          "resumen": "El índice de precios de producción subió a 59,8, el nivel más alto desde agosto de 2022.",
+          "link": "https://www.theglobeandmail.com/business/article-us-business-activity-cools-in-october-as-strong-demand-fuels-inflation/",
+          "fuente": "The Globe and Mail",
+          "imagen": "https://www.theglobeandmail.com/resizer/v2/OUWLI3H7OBGQNJK7R77PFBF2CE.JPG?auth=12fbecba13bd383aa65b23ebb4d8e556aee6bf2508502e98b957e12bb1ffcdb8&smart=true&width=3500&height=2468",
+          "fecha": "2026-10-23T14:02:29.000Z",
+          "tag": "Inflación",
+          "nivel": 1,
+          "medios": 1,
+          "puntaje": 63,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 8,
+            "gigante": 0,
+            "frescura": 8,
+            "soloArgentinos": 0,
+            "bolsa": 0,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 70,
+          "porQue": "el aumento del índice de precios de producción indica mayor presión inflacionaria y puede elevar expectativas de alzas de tasas",
+          "activos": "bonos del Tesoro, acciones, mercado de divisas",
+          "estado": "dato_oficial",
+          "fijada": false
+        },
+        {
+          "titulo": "Los mercados bursátiles de Nueva York caen con cautela por la IA y el riesgo geopolítico",
+          "resumen": "Los índices de NY abrieron a la baja, ampliando pérdidas previas, mientras los inversores temen riesgos crediticios vinculados a IA y geopolitica.",
+          "link": "https://valor.globo.com/financas/noticia/2026/10/23/bolsas-em-ny-caem-com-cautela-sobre-ia-e-risco-geopolitico.ghtml",
+          "fuente": "Valor Econômico",
+          "imagen": "https://s2-valor.glbimg.com/DK9oqA6_HwJzUA61F3w8hD2IyBM=/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2026/q/9/i7shCMRFWVbtUOIEoZBQ/452827575.jpg",
+          "fecha": "2026-10-23T13:47:43.000Z",
+          "tag": "Elecciones",
+          "nivel": 1,
+          "medios": 1,
+          "puntaje": 62,
+          "detalle": {
+            "tema": 12,
+            "cobertura": 8,
+            "gigante": 0,
+            "frescura": 8,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 10,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 78,
+          "porQue": "caída de índices de NY por cautela ante riesgos de IA y geopolíticos",
+          "activos": "S&P 500, Nasdaq, Dow Jones",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
+          "titulo": "SpaceX busca 80.000 torres para operar como operador móvil en EE.UU.",
+          "resumen": "SpaceX planea asegurar 80.000 torres para convertir Starlink en operador móvil nacional, lo que podría afectar a las compañías de telecomunicaciones.",
+          "link": "https://valor.globo.com/empresas/noticia/2026/10/23/spacex-mira-80-mil-torres-para-se-tornar-operadora-de-celular-nos-eua-e-derruba-aes-do-setor-de-telecom.ghtml",
+          "fuente": "Valor Econômico",
+          "imagen": "https://s2-valor.glbimg.com/UR5HleiHaNS_7VvJ3OcGce90z6I=/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2026/7/g/TgquhESpGbDSnXBkOAvQ/453774200.jpg",
+          "fecha": "2026-10-23T11:10:46.000Z",
+          "tag": "Acciones",
+          "nivel": 2,
+          "medios": 1,
+          "puntaje": 60,
+          "detalle": {
+            "tema": 30,
+            "cobertura": 8,
+            "gigante": 0,
+            "frescura": 7,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 12,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 55,
+          "porQue": "Posible entrada de SpaceX en telecomunicaciones podría reconfigurar el sector de operadores",
+          "activos": "SpaceX, sector telecomunicaciones",
+          "estado": "anuncio",
+          "fijada": false
+        },
+        {
+          "titulo": "Los fondos de cobertura venden acciones estadounidenses en corto",
+          "resumen": "Tras un mes de pérdidas, los fondos de cobertura están vendiendo agresivamente acciones estadounidenses en corto.",
+          "link": "https://www.marketwatch.com/story/its-been-a-painful-month-for-hedge-funds-to-turn-it-around-they-are-shorting-u-s-stocks-d36ee922?mod=mw_rss_topstories",
+          "fuente": "MarketWatch",
+          "imagen": "https://images.mktw.net/im-71939932",
+          "fecha": "2026-10-23T12:23:00.000Z",
+          "tag": "Acciones",
+          "nivel": 2,
+          "medios": 2,
+          "puntaje": 57,
+          "detalle": {
+            "tema": 30,
+            "cobertura": 13,
             "gigante": 0,
             "frescura": 7,
             "soloArgentinos": 0,
@@ -244,38 +389,9 @@
             "noInversion": 0,
             "sinTema": 0
           },
-          "ia": 60,
-          "porQue": "aumento de rendimientos del Tesoro tras caída previa, foco sigue en bonos franceses",
-          "activos": "bonos del Tesoro EE.UU., bonos franceses, mercado de bonos",
-          "estado": "hecho",
-          "fijada": false
-        },
-        {
-          "titulo": "Spotify superó los pronósticos de Wall Street y acelera su apuesta por la IA para el fin de año",
-          "resumen": "Spotify supera estimaciones de Wall Street y anuncia mayor inversión en IA, proyectando 820 millones de euros de utilidad operativa en Q4.",
-          "link": "https://www.ambito.com/finanzas/spotify-supero-los-pronosticos-wall-street-y-acelera-su-apuesta-la-ia-el-fin-ano-n6336840",
-          "fuente": "Ámbito",
-          "imagen": "https://media.ambito.com/p/48f4a189c2f1bf04bcfce96bcd0a5c72/adjuntos/239/imagenes/043/578/0043578391/1200x675/629x411:649x431/spotify-1500-x-1000.png",
-          "fecha": "2026-10-22T22:01:00.000Z",
-          "tag": "Índices",
-          "nivel": 1,
-          "medios": 3,
-          "puntaje": 62,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 16,
-            "gigante": 0,
-            "frescura": 4,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
           "ia": 55,
-          "porQue": "superó pronósticos y anunció mayor inversión en IA",
-          "activos": "acciones Spotify",
+          "porQue": "incremento de ventas en corto por fondos de cobertura presiona a la baja acciones estadounidenses",
+          "activos": "acciones estadounidenses",
           "estado": "dato_oficial",
           "fijada": false
         }
@@ -285,8 +401,8 @@
       "precios": [
         {
           "nombre": "MSCI Merval",
-          "precio": 97992.97,
-          "variacion": -1.55,
+          "precio": 99207.83,
+          "variacion": 1.24,
           "unidad": ""
         },
         {
@@ -305,7 +421,7 @@
         {
           "nombre": "Dólar blue",
           "precio": 1565,
-          "variacion": -0.31847133757961776,
+          "variacion": 0,
           "unidad": "$"
         },
         {
@@ -316,8 +432,58 @@
           "unidad": "%"
         }
       ],
-      "suben": [],
-      "bajan": [],
+      "suben": [
+        {
+          "simbolo": "TGNO4",
+          "nombre": "TGN",
+          "precio": 3042.5,
+          "variacion": 4.28449014567267
+        },
+        {
+          "simbolo": "YPFD",
+          "nombre": "YPF",
+          "precio": 8235,
+          "variacion": 2.425373134328357
+        },
+        {
+          "simbolo": "LOMA",
+          "nombre": "Loma Negra",
+          "precio": 3105,
+          "variacion": 1.3050570962479524
+        },
+        {
+          "simbolo": "PAMP",
+          "nombre": "Pampa Energía",
+          "precio": 5145,
+          "variacion": 1.179941002949847
+        },
+        {
+          "simbolo": "CRES",
+          "nombre": "Cresud",
+          "precio": 1805,
+          "variacion": 1.1771300448430555
+        }
+      ],
+      "bajan": [
+        {
+          "simbolo": "TXAR",
+          "nombre": "Ternium Argentina",
+          "precio": 763.5,
+          "variacion": -0.7152145643693153
+        },
+        {
+          "simbolo": "VALO",
+          "nombre": "Grupo Valores",
+          "precio": 511.5,
+          "variacion": -0.4863813229571967
+        },
+        {
+          "simbolo": "BYMA",
+          "nombre": "BYMA",
+          "precio": 241.75,
+          "variacion": -0.4119464469618972
+        }
+      ],
       "noticias": [
         {
           "titulo": "Dólar a $1.500 y riesgo país en alza: la contradicción que preocupa a la City",
@@ -325,14 +491,14 @@
           "link": "https://www.iprofesional.com/finanzas/467235-el-riesgo-pais-se-dispara-y-crece-el-temor-a-un-contagio-sobre-el-dolar",
           "fuente": "iProfesional",
           "imagen": "https://resizer.iproimg.com/unsafe/640x/https://assets.iprofesional.com/assets/jpg/2026/04/614763.jpg",
-          "fecha": "2026-10-23T10:58:33.000Z",
+          "fecha": "2026-10-23T17:15:43.000Z",
           "tag": "Riesgo país",
           "nivel": 1,
-          "medios": 17,
-          "puntaje": 78,
+          "medios": 15,
+          "puntaje": 77,
           "detalle": {
             "tema": 40,
-            "cobertura": 33,
+            "cobertura": 32,
             "gigante": 0,
             "frescura": 9,
             "soloArgentinos": 0,
@@ -349,35 +515,6 @@
           "fijada": false
         },
         {
-          "titulo": "Aluar inauguró el mayor parque eólico del país y analiza invertir en data centers",
-          "resumen": "Aluar inauguró el mayor parque eólico argentino y estudia invertir en data centers, diversificando su alta demanda eléctrica.",
-          "link": "https://www.clarin.com/economia/aluar-inauguro-mayor-parque-eolico-pais-analiza-invertir-data-centers_0_KhPCBDUaXL.html",
-          "fuente": "Clarín",
-          "imagen": "https://www.clarin.com/img/2026/10/22/WH5PSjLKT_1200x630__1.jpg",
-          "fecha": "2026-10-23T08:29:36.000Z",
-          "tag": "Elecciones",
-          "nivel": 1,
-          "medios": 7,
-          "puntaje": 75,
-          "detalle": {
-            "tema": 12,
-            "cobertura": 24,
-            "gigante": 0,
-            "frescura": 8,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 10,
-            "empresa": 30,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 57,
-          "porQue": "Aluar diversifica su consumo energético con el mayor parque eólico del país, lo que puede reducir presión sobre la red eléctrica y afectar precios de energía",
-          "activos": "acciones Aluar, sector energético argentino, mercado de data centers",
-          "estado": "hecho",
-          "fijada": false
-        },
-        {
           "titulo": "El BCRA aceleró las compras y acumuló más de u$s200 millones en la semana, pero bajaron las reservas",
           "resumen": "El BCRA compra más de 200 millones de dólares en la semana, elevando acumulado a 1.210 millones, aunque las reservas disminuyeron.",
           "link": "https://www.ambito.com/finanzas/el-bcra-acelero-las-compras-y-acumulo-mas-us200-millones-la-semana-pero-bajaron-las-reservas-n6336918",
@@ -387,12 +524,12 @@
           "tag": "BCRA",
           "nivel": 1,
           "medios": 5,
-          "puntaje": 72,
+          "puntaje": 71,
           "detalle": {
             "tema": 40,
             "cobertura": 21,
             "gigante": 0,
-            "frescura": 4,
+            "frescura": 2,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 0,
@@ -407,21 +544,79 @@
           "fijada": false
         },
         {
+          "titulo": "Bonos argentinos lideran el ranking de caídas entre emergentes y la City pide cautela",
+          "resumen": "Los bonos argentinos en dólares registran fuertes descensos, impulsando el riesgo país y generando cautela entre inversores internacionales.",
+          "link": "https://www.iprofesional.com/finanzas/467273-bonos-argentinos-lideran-el-ranking-de-caidas-entre-emergentes-y-la-city-pide-cautela",
+          "fuente": "iProfesional",
+          "imagen": "https://resizer.iproimg.com/unsafe/640x/https://assets.iprofesional.com/assets/jpg/2022/03/532311.jpg",
+          "fecha": "2026-10-23T10:00:00.000Z",
+          "tag": "Bonos",
+          "nivel": 1,
+          "medios": 1,
+          "puntaje": 70,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 8,
+            "gigante": 0,
+            "frescura": 6,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 78,
+          "porQue": "Desprecio de bonos en dólares eleva riesgo país y afecta financiamiento externo",
+          "activos": "bonos argentinos, riesgo país",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
+          "titulo": "YPF define quién fabricará los tubos del gasoducto más grande de América del Sur",
+          "resumen": "YPF anunció la decisión sobre el fabricante de los tubos del gasoducto que conectará Vaca Muerta con Río Negro, con anuncio final de inversión el 26 de noviembre.",
+          "link": "https://www.lanacion.com.ar/economia/ypf-define-quien-fabricara-los-tubos-del-gasoducto-mas-grande-de-america-del-sur-nid23102026/",
+          "fuente": "La Nación",
+          "imagen": "https://resizer.glanacion.com/resizer/v2/MWTZKAETUZFF7HUNRFCORMFYYI.jpeg?auth=3f2326f247fcc81d3c22d6f81624d2b970b8b54c67bff66adef1ebf8706fb17a&smart=true&width=1450&height=736",
+          "fecha": "2026-10-23T13:21:14.000Z",
+          "tag": "Empresas",
+          "nivel": 4,
+          "medios": 1,
+          "puntaje": 66,
+          "detalle": {
+            "tema": 4,
+            "cobertura": 8,
+            "gigante": 6,
+            "frescura": 8,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 38,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 60,
+          "porQue": "Selección del proveedor influirá en costos y cronograma del proyecto Vaca Muerta",
+          "activos": "YPF, sector gasífero, construcción",
+          "estado": "anuncio",
+          "fijada": false
+        },
+        {
           "titulo": "Privatización del Belgrano Cargas: el Gobierno está a un paso de posponer el proceso de licitación",
           "resumen": "El gobierno argentino podría posponer la licitación del Belgrano Cargas luego de que Grupo México se retirara del proceso.",
           "link": "https://www.infobae.com/economia/2026/10/22/privatizacion-del-belgrano-cargas-el-gobierno-esta-a-un-paso-de-posponer-el-proceso-de-licitacion/",
           "fuente": "Infobae",
           "imagen": "https://www.infobae.com/resizer/v2/TCSI2DJBVBBGXCLKDHOKDQGUFQ.JPG?auth=249889aad413b5b457124d9a883aca3f22b6196cde51d738543024bb0ba212ef&smart=true&width=5500&height=3207",
-          "fecha": "2026-10-23T08:00:00.000Z",
+          "fecha": "2026-10-22T23:54:00.000Z",
           "tag": "Bonos",
           "nivel": 1,
-          "medios": 6,
-          "puntaje": 67,
+          "medios": 5,
+          "puntaje": 64,
           "detalle": {
             "tema": 40,
-            "cobertura": 22,
+            "cobertura": 21,
             "gigante": 0,
-            "frescura": 8,
+            "frescura": 3,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 0,
@@ -436,19 +631,19 @@
           "fijada": false
         },
         {
-          "titulo": "El dólar subió $5 y alcanzó el valor más alto del año",
-          "resumen": "El dólar subió $5, alcanzó su nivel más alto del año, elevando el riesgo país y bajando acciones locales y de EE.UU.",
-          "link": "https://www.lanacion.com.ar/economia/el-riesgo-pais-supera-los-700-puntos-y-vuelve-al-valor-maximo-del-ano-nid22102026/",
-          "fuente": "La Nación",
-          "imagen": "https://resizer.glanacion.com/resizer/v2/WV7GA7AVGVGSZDRHCXSTJPNF6E.png?auth=d58a47efeb1f03ed6e0bde0a7532f4e616058b4d58d3c7f89f265f6389d43e47&smart=true&width=2000&height=1333",
-          "fecha": "2026-10-23T08:06:37.000Z",
-          "tag": "Dólar",
-          "nivel": 2,
-          "medios": 7,
-          "puntaje": 64,
+          "titulo": "Alerta en las pymes industriales: la producción cayó casi 12%, se redujo el empleo y no hay señales de recuperación",
+          "resumen": "Un relevamiento muestra una caída del 12% en la producción de pymes industriales, con reducción de empleo y confianza empresarial al nivel más bajo desde 2023.",
+          "link": "https://www.infobae.com/economia/2026/10/23/alerta-en-las-pymes-industriales-la-produccion-cayo-casi-12-se-redujo-el-empleo-y-no-hay-senales-de-recuperacion/",
+          "fuente": "Infobae",
+          "imagen": "https://www.infobae.com/resizer/v2/CAX2NQGWC5EXTEWD6LJX33LHF4.jpg?auth=5505cfcabc9470921795690d9e436039a6ab55e7584aafe68ec9f83525593d29&smart=true&width=1920&height=1080",
+          "fecha": "2026-10-23T13:51:55.000Z",
+          "tag": "Empleo",
+          "nivel": 1,
+          "medios": 1,
+          "puntaje": 61,
           "detalle": {
-            "tema": 30,
-            "cobertura": 24,
+            "tema": 40,
+            "cobertura": 8,
             "gigante": 0,
             "frescura": 8,
             "soloArgentinos": 0,
@@ -459,38 +654,38 @@
             "sinTema": 0
           },
           "ia": 65,
-          "porQue": "Incremento del dólar eleva riesgo país y presiona acciones argentinas",
-          "activos": "dólar, riesgo país, acciones argentinas",
+          "porQue": "Deterioro de la manufactura industrial presiona el crecimiento y la demanda interna",
+          "activos": "pymes industriales, empleo",
           "estado": "hecho",
           "fijada": false
         },
         {
-          "titulo": "Las acciones argentinas caen a precios mínimos en un año por factores locales y externos",
-          "resumen": "Las acciones argentinas alcanzan su nivel más bajo en un año tras la toma de ganancias en EE UU y el aumento de tasas.",
-          "link": "https://www.infobae.com/economia/2026/10/22/las-acciones-argentinas-caen-a-precios-minimos-en-un-ano-por-factores-locales-y-externos/",
-          "fuente": "Infobae",
-          "imagen": "https://www.infobae.com/resizer/v2/4STEFNLM2VDTJL7RHBMHDXALRE.png?auth=77d601091d4176cd4fcba667fea7aeb16c70874607958b6d6820550e6ba07502&smart=true&width=1536&height=1024",
-          "fecha": "2026-10-22T21:10:40.000Z",
-          "tag": "Acciones",
+          "titulo": "“Año extraordinario”: Brasil prevé la mayor importación de trigo en 30 años y abre una oportunidad para la Argentina",
+          "resumen": "Brasil proyecta importar más de 9 millones de toneladas de trigo en 2026/27, lo que abre oportunidad para exportadores argentinos.",
+          "link": "https://www.lanacion.com.ar/economia/campo/ano-extraordinario-brasil-preve-la-mayor-importacion-de-trigo-en-30-anos-y-abre-una-oportunidad-para-nid22102026/",
+          "fuente": "La Nación",
+          "imagen": "https://resizer.glanacion.com/resizer/v2/4TYL5L2EYNA3DDIXWDMWK4LVWY.jpeg?auth=36769e49331297935e3c50112f66799e28ea479e8b69ad1cbf57795f81e14785&smart=true&width=1600&height=1066",
+          "fecha": "2026-10-22T21:52:05.000Z",
+          "tag": "Materias primas",
           "nivel": 2,
-          "medios": 3,
-          "puntaje": 60,
+          "medios": 2,
+          "puntaje": 50,
           "detalle": {
             "tema": 30,
-            "cobertura": 16,
+            "cobertura": 13,
             "gigante": 0,
-            "frescura": 4,
+            "frescura": 2,
             "soloArgentinos": 0,
-            "bolsa": 8,
+            "bolsa": 0,
             "elecciones": 0,
             "empresa": 0,
             "noInversion": 0,
             "sinTema": 0
           },
-          "ia": 62,
-          "porQue": "Caída de precios de acciones argentinas por toma de ganancias y alza de tasas, presionando el mercado accionario",
-          "activos": "acciones argentinas, índice MERVAL",
-          "estado": "hecho",
+          "ia": 55,
+          "porQue": "Mayor demanda de trigo de Brasil podría impulsar exportaciones agrícolas argentinas",
+          "activos": "exportadores de trigo, sector agro, peso",
+          "estado": "estimacion",
           "fijada": false
         }
       ]
@@ -499,32 +694,32 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4037.4,
-          "variacion": -0.566,
+          "precio": 3991.8,
+          "variacion": -1.689,
           "unidad": "US$"
         },
         {
           "nombre": "Brent",
-          "precio": 109.14,
-          "variacion": 0.442,
+          "precio": 111.24,
+          "variacion": 2.374,
           "unidad": "US$"
         },
         {
           "nombre": "Bitcoin",
-          "precio": 81694.95,
-          "variacion": -0.194,
+          "precio": 81713.04,
+          "variacion": -0.097,
           "unidad": "US$"
         },
         {
           "nombre": "Plata",
-          "precio": 54.005,
-          "variacion": -1.822,
+          "precio": 53.2,
+          "variacion": -3.285,
           "unidad": "US$"
         },
         {
           "nombre": "Brasil (EWZ)",
-          "precio": 41.85,
-          "variacion": -1.553,
+          "precio": 41.71,
+          "variacion": -0.335,
           "unidad": "US$"
         }
       ],
@@ -590,48 +785,19 @@
           "fijada": true
         },
         {
-          "titulo": "Las Bolsas mundiales se desploman ante la subida del precio del petróleo",
-          "resumen": "Los mercados globales cayeron tras el aumento del precio del petróleo; el CSI 300 bajó 1,8% y se intensificó la venta de bonos en Europa.",
-          "link": "https://www.expansion.com/economia/financial-times/2026/10/22/bolsas-mundiales-desploman-subida-precio-petroleo.html",
-          "fuente": "Expansión",
-          "imagen": "https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2026/10/22/17926640010966.jpg",
-          "fecha": "2026-10-23T10:48:39.000Z",
-          "tag": "Petróleo",
-          "nivel": 1,
-          "medios": 4,
-          "puntaje": 77,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 19,
-            "gigante": 0,
-            "frescura": 9,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 78,
-          "porQue": "Alza del petróleo impulsa venta de acciones y bonos, presionando mercados globales",
-          "activos": "acciones globales, bonos eurozona, CSI 300, mercados bursátiles",
-          "estado": "hecho",
-          "fijada": false
-        },
-        {
-          "titulo": "El petróleo da un paso más en su escalada",
+          "titulo": "El petróleo da un paso más en su escalada al tocar los 115 dólares",
           "resumen": "El precio del Brent subió a 114 dólares, intensificando la presión alcista sobre los mercados financieros.",
           "link": "https://www.expansion.com/mercados/materias-primas/2026/10/23/6adb0f83e5fdea04318b45ba.html",
           "fuente": "Expansión",
           "imagen": "https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2026/10/23/17927408127597.jpg",
-          "fecha": "2026-10-23T07:57:18.000Z",
+          "fecha": "2026-10-23T13:27:04.000Z",
           "tag": "Petróleo",
           "nivel": 1,
-          "medios": 4,
-          "puntaje": 72,
+          "medios": 9,
+          "puntaje": 76,
           "detalle": {
             "tema": 40,
-            "cobertura": 19,
+            "cobertura": 27,
             "gigante": 0,
             "frescura": 8,
             "soloArgentinos": 0,
@@ -648,12 +814,41 @@
           "fijada": false
         },
         {
+          "titulo": "Inversores en bonos presionan a Francia mientras su economía se contrae",
+          "resumen": "Los inversores de bonos aumentan la presión sobre Francia, cuya economía muestra signos de declive, avivando temores de crisis en la zona euro.",
+          "link": "https://www.handelsblatt.com/finanzen/maerkte/anleihen/frankreich-anleihen-unter-druck-die-wirtschaft-schmiert-ab/100264444.html",
+          "fuente": "Handelsblatt",
+          "imagen": "https://images.handelsblatt.com/x6d5hbL-MTG5/cover/900/506/0/0/313/312/0.5/0.5/aftermath-of-clashes-during-nationwide-protests-in-paris-paris-france-october-18-a-person-walks.jpg",
+          "fecha": "2026-10-23T12:08:54.000Z",
+          "tag": "Bonos",
+          "nivel": 1,
+          "medios": 3,
+          "puntaje": 73,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 16,
+            "gigante": 0,
+            "frescura": 7,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 75,
+          "porQue": "Mayor presión de los mercados de bonos eleva el riesgo de deuda francesa y afecta la zona euro",
+          "activos": "bonos franceses, euro",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
           "titulo": "Newmont supera estimaciones de ganancias trimestrales al beneficiarse de precios más altos del oro",
           "resumen": "Newmont reportó ganancias superiores a lo esperado, impulsado por el alto precio del oro.",
           "link": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
           "fuente": "The Globe and Mail",
           "imagen": "https://www.theglobeandmail.com/resizer/v2/53SXZGE6K5JZLEFIOAIKSGTA6M.JPG?auth=a9c525b2f5d4b7e0ae296b9538ee1c8130e2ba9683978cbbaddb6843510bd499&smart=true&width=3500&height=2231",
-          "fecha": "2026-10-23T07:37:00.000Z",
+          "fecha": "2026-10-23T12:05:27.000Z",
           "tag": "Oro",
           "nivel": 2,
           "medios": 3,
@@ -662,7 +857,7 @@
             "tema": 30,
             "cobertura": 16,
             "gigante": 0,
-            "frescura": 8,
+            "frescura": 7,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 0,
@@ -677,21 +872,50 @@
           "fijada": false
         },
         {
-          "titulo": "Liquidadores de Evergrande recuperan menos del 1% de su deuda de 46 mil millones de dólares",
-          "resumen": "Los liquidadores recuperaron menos del 1% de la deuda de US$46 bn y anunciarán un pago inicial a los acreedores en el primer semestre de 2027.",
-          "link": "https://valor.globo.com/mundo/noticia/2026/10/23/aps-2-anos-liquidantes-da-china-evergrande-recuperaram-menos-de-1-pontos-percentuais-dos-us-46-bi-da-dvida.ghtml",
-          "fuente": "Valor Econômico",
-          "imagen": "https://s2-valor.glbimg.com/_PalxuAASk5yMpK9gl_PW7ZrB5g=/i.s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/internal_photos/bs/2022/9/g/5ACBJ6QKiF528dWLZBMw/385468184-0-4.jpg",
-          "fecha": "2026-10-23T08:00:00.000Z",
-          "tag": "Bonos",
+          "titulo": "Se aceleró la inflación de Japón y aumenta la presión para que su banco central suba la tasa",
+          "resumen": "La inflación subyacente de Japón superó 2% por primera vez en nueve meses, aumentando la presión para una alza de tasas.",
+          "link": "https://www.ambito.com/economia/se-acelero-la-inflacion-japon-y-aumenta-la-presion-que-su-banco-central-suba-la-tasa-n6337146",
+          "fuente": "Ámbito",
+          "imagen": "https://media.ambito.com/p/f31d4af7b09b3b2ca332f90a51091fea/adjuntos/239/imagenes/043/333/0043333295/banco-japon-2jpg.jpg",
+          "fecha": "2026-10-23T13:40:00.000Z",
+          "tag": "Inflación",
           "nivel": 1,
-          "medios": 2,
-          "puntaje": 64,
+          "medios": 3,
+          "puntaje": 66,
           "detalle": {
             "tema": 40,
-            "cobertura": 13,
+            "cobertura": 16,
             "gigante": 0,
             "frescura": 8,
+            "soloArgentinos": 8,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 68,
+          "porQue": "el repunte de la inflación subyacente en Japón presiona al Banco de Japón a subir la tasa",
+          "activos": "yen, bonos japoneses",
+          "estado": "dato_oficial",
+          "fijada": false
+        },
+        {
+          "titulo": "Las expectativas de inflación en la zona euro suben al 3,1%",
+          "resumen": "Las expectativas de inflación de los hogares en la zona euro aumentaron ligeramente en septiembre, impulsadas por precios de energía y la guerra en Oriente Medio.",
+          "link": "https://valor.globo.com/mundo/noticia/2026/10/23/expectativas-de-inflao-na-zona-do-euro-sobem-para-31-pontos-percentuais.ghtml",
+          "fuente": "Valor Econômico",
+          "imagen": "https://s3.glbimg.com/v1/AUTH_63b422c2caee4269b8b34177e8876b93/public/fb_marca.png",
+          "fecha": "2026-10-23T09:17:26.000Z",
+          "tag": "Tasas",
+          "nivel": 1,
+          "medios": 3,
+          "puntaje": 59,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 16,
+            "gigante": 0,
+            "frescura": 6,
             "soloArgentinos": 0,
             "bolsa": 0,
             "elecciones": 0,
@@ -699,68 +923,10 @@
             "noInversion": 0,
             "sinTema": 0
           },
-          "ia": 68,
-          "porQue": "Pago inicial a los acreedores de Evergrande afecta precios de bonos chinos y percepción de riesgo",
-          "activos": "bonos chinos, deuda Evergrande, riesgo país",
-          "estado": "anuncio",
-          "fijada": false
-        },
-        {
-          "titulo": "Los extranjeros lideran el optimismo con Brasil; Petrobras supera a Itaú entre las acciones favoritas",
-          "resumen": "Bradesco BBI indica que inversores extranjeros son el principal motor del alza en la bolsa brasileña, prefiriendo Petrobras sobre Itaú.",
-          "link": "https://www.infomoney.com.br/mercados/estrangeiros-lideram-otimismo-com-brasil-petrobras-supera-itau-entre-acoes-favoritas/",
-          "fuente": "InfoMoney",
-          "imagen": "https://www.infomoney.com.br/wp-content/uploads/2026/10/Petroleo-e-Alta-na-Bolsa-ao-Amanhecer-1.jpg?fit=300%2C169&quality=70&strip=all",
-          "fecha": "2026-10-23T08:30:00.000Z",
-          "tag": "Acciones",
-          "nivel": 2,
-          "medios": 1,
-          "puntaje": 56,
-          "detalle": {
-            "tema": 30,
-            "cobertura": 8,
-            "gigante": 0,
-            "frescura": 8,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 58,
-          "porQue": "Incrementa el optimismo de inversores extranjeros en Brasil, favoreciendo a Petrobras y potencialmente elevando su cotización",
-          "activos": "acciones Petrobras, bolsa brasileña, sector energético",
-          "estado": "dato_oficial",
-          "fijada": false
-        },
-        {
-          "titulo": "Los futuros del oro en sobreventa extrema cerca del soporte: niveles en vivo",
-          "resumen": "Los futuros del oro presentan sobreventa extrema cerca del nivel de soporte, según datos en vivo.",
-          "link": "https://es.investing.com/news/commodities-news/los-futuros-del-oro-en-consolidacion-tensa-cerca-de-4225-niveles-en-vivo-93CH-3878465",
-          "fuente": "Investing",
-          "imagen": "https://content-media.investing.com/news/LYNXMPEA601YK_M.jpg",
-          "fecha": "2026-10-23T10:05:03.000Z",
-          "tag": "Oro",
-          "nivel": 2,
-          "medios": 1,
-          "puntaje": 55,
-          "detalle": {
-            "tema": 30,
-            "cobertura": 8,
-            "gigante": 0,
-            "frescura": 8,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
           "ia": 55,
-          "porQue": "Futuros del oro en sobreventa extrema pueden generar rebote y mover precios",
-          "activos": "futuros de oro",
-          "estado": "hecho",
+          "porQue": "el aumento de expectativas inflacionarias en la zona euro puede influir en la política monetaria del BCE",
+          "activos": "euro, bonos europeos",
+          "estado": "dato_oficial",
           "fijada": false
         }
       ]
