@@ -59,8 +59,20 @@ const BEA = [
   [/^Personal Income and Outlays/, 'Inflación PCE, la que mira la Fed'],
   [/^U\.S\. International Trade in Goods and Services/, 'Balanza comercial'],
 ];
-async function deIcs(url, tabla) {
-  return leerIcs(await traer(url)).flatMap(({ momento, titulo }) => {
+// Cada calendario que se baja bien queda guardado (cache-<nombre>.json). Si un día no se puede bajar
+// (la BLS bloquea a las computadoras de GitHub), se usa el guardado: esas fechas se anuncian con meses de anticipación.
+async function deIcs(url, tabla, nombre) {
+  const archivo = new URL(`./cache-${nombre}.json`, import.meta.url);
+  let texto;
+  try {
+    texto = await traer(url);
+    if (!texto.includes('BEGIN:VEVENT')) throw new Error('no es un calendario');
+    await writeFile(archivo, JSON.stringify({ pedido: Date.now(), texto }));
+  } catch (e) {
+    try { texto = JSON.parse(await readFile(archivo, 'utf8')).texto; console.warn(`Calendario: ${nombre} no respondió, uso el guardado`); }
+    catch { throw e; }
+  }
+  return leerIcs(texto).flatMap(({ momento, titulo }) => {
     const t = tabla.find(([re]) => re.test(titulo));
     return t ? [evento('us', momento, t[1])] : [];
   });
@@ -193,8 +205,8 @@ export async function calendario() {
   const ultima = fechas.at(-1);
 
   const fuentes = {
-    'BLS': () => deIcs('https://www.bls.gov/schedule/news_release/bls.ics', BLS),
-    'BEA': () => deIcs('https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics', BEA),
+    'BLS': () => deIcs('https://www.bls.gov/schedule/news_release/bls.ics', BLS, 'bls'),
+    'BEA': () => deIcs('https://www.bea.gov/news/schedule/ics/online-calendar-subscription.ics', BEA, 'bea'),
     'Fed': fed,
     'ForexFactory': forexFactory,
     'INDEC': () => indec(fechas.filter(f => ![0, 6].includes(new Date(f + 'T12:00:00Z').getUTCDay()))),
