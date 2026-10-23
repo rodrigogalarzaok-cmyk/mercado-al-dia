@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-23T02:47:52.075Z",
+  "actualizado": "2026-10-23T02:50:15.824Z",
   "secciones": {
     "eeuu": {
       "precios": [
@@ -7,12 +7,6 @@
           "nombre": "S&P 500",
           "precio": 7663.43,
           "variacion": -1.208,
-          "unidad": ""
-        },
-        {
-          "nombre": "Nasdaq",
-          "precio": 26008.86,
-          "variacion": -2.599,
           "unidad": ""
         },
         {
@@ -38,6 +32,12 @@
           "precio": 4.953,
           "variacion": -3.75,
           "unidad": "%"
+        },
+        {
+          "nombre": "Nasdaq",
+          "precio": 26008.86,
+          "variacion": -2.599,
+          "unidad": ""
         }
       ],
       "suben": [
@@ -384,8 +384,8 @@
           "fecha": "2026-10-23T00:13:21.000Z",
           "tag": "Riesgo país",
           "nivel": 1,
-          "medios": 12,
-          "puntaje": 75,
+          "medios": 13,
+          "puntaje": 76,
           "detalle": {
             "tema": 40,
             "cobertura": 30,
@@ -500,11 +500,11 @@
           "fecha": "2026-10-23T02:49:30.000Z",
           "tag": "Dólar",
           "nivel": 2,
-          "medios": 8,
+          "medios": 7,
           "puntaje": 64,
           "detalle": {
             "tema": 30,
-            "cobertura": 25,
+            "cobertura": 24,
             "gigante": 0,
             "frescura": 8,
             "soloArgentinos": 0,
@@ -555,26 +555,26 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4034.9,
-          "variacion": -0.628,
+          "precio": 4033.2,
+          "variacion": -0.67,
           "unidad": "US$"
         },
         {
           "nombre": "Brent",
-          "precio": 113.84,
-          "variacion": 0.592,
+          "precio": 113.88,
+          "variacion": 0.627,
           "unidad": "US$"
         },
         {
           "nombre": "Plata",
-          "precio": 54.26,
-          "variacion": -1.358,
+          "precio": 54.305,
+          "variacion": -1.276,
           "unidad": "US$"
         },
         {
           "nombre": "Bitcoin",
-          "precio": 81756.02,
-          "variacion": -1.323,
+          "precio": 81804.62,
+          "variacion": -1.264,
           "unidad": "US$"
         },
         {
