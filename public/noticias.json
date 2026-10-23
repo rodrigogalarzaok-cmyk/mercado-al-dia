@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-23T02:50:15.824Z",
+  "actualizado": "2026-10-23T02:51:58.948Z",
   "secciones": {
     "eeuu": {
       "precios": [
@@ -500,11 +500,11 @@
           "fecha": "2026-10-23T02:49:30.000Z",
           "tag": "Dólar",
           "nivel": 2,
-          "medios": 7,
+          "medios": 8,
           "puntaje": 64,
           "detalle": {
             "tema": 30,
-            "cobertura": 24,
+            "cobertura": 25,
             "gigante": 0,
             "frescura": 8,
             "soloArgentinos": 0,
@@ -555,26 +555,26 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4033.2,
-          "variacion": -0.67,
+          "precio": 4031.8,
+          "variacion": -0.704,
           "unidad": "US$"
         },
         {
           "nombre": "Brent",
-          "precio": 113.88,
-          "variacion": 0.627,
-          "unidad": "US$"
-        },
-        {
-          "nombre": "Plata",
-          "precio": 54.305,
-          "variacion": -1.276,
+          "precio": 113.93,
+          "variacion": 0.672,
           "unidad": "US$"
         },
         {
           "nombre": "Bitcoin",
-          "precio": 81804.62,
-          "variacion": -1.264,
+          "precio": 81806.12,
+          "variacion": -1.262,
+          "unidad": "US$"
+        },
+        {
+          "nombre": "Plata",
+          "precio": 54.21,
+          "variacion": -1.449,
           "unidad": "US$"
         },
         {
