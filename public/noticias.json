@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-23T02:40:51.929Z",
+  "actualizado": "2026-10-23T02:47:52.075Z",
   "secciones": {
     "eeuu": {
       "precios": [
@@ -168,7 +168,7 @@
           "resumen": "Los precios del crudo bajan desde máximos de cinco meses tras la invocación por parte de Trump de la Ley de Producción de Defensa.",
           "link": "https://es.investing.com/news/commodities-news/los-precios-del-petroleo-se-enfrian-desde-maximos-de-5-meses-tras-invocar-trump-la-ley-de-produccion-de-defensa-3886969",
           "fuente": "Investing",
-          "imagen": "https://content-media.investing.com/news/LYNXMPEA5T0D5_M.jpg",
+          "imagen": "https://content-media.investing.com/news/LYNXMPEA5T0D5_L.jpg",
           "fecha": "2026-10-23T03:41:37.000Z",
           "tag": "Petróleo",
           "nivel": 1,
@@ -384,8 +384,8 @@
           "fecha": "2026-10-23T00:13:21.000Z",
           "tag": "Riesgo país",
           "nivel": 1,
-          "medios": 13,
-          "puntaje": 76,
+          "medios": 12,
+          "puntaje": 75,
           "detalle": {
             "tema": 40,
             "cobertura": 30,
@@ -555,26 +555,26 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4029.5,
-          "variacion": -0.761,
+          "precio": 4034.9,
+          "variacion": -0.628,
           "unidad": "US$"
         },
         {
           "nombre": "Brent",
-          "precio": 113.86,
-          "variacion": 0.61,
+          "precio": 113.84,
+          "variacion": 0.592,
           "unidad": "US$"
         },
         {
           "nombre": "Plata",
-          "precio": 54.155,
-          "variacion": -1.549,
+          "precio": 54.26,
+          "variacion": -1.358,
           "unidad": "US$"
         },
         {
           "nombre": "Bitcoin",
-          "precio": 81800.88,
-          "variacion": -1.269,
+          "precio": 81756.02,
+          "variacion": -1.323,
           "unidad": "US$"
         },
         {
@@ -824,7 +824,7 @@
           "resumen": "El primer ministro finlandés afirma que Finlandia no comprará gas a Rusia mientras dure la guerra en Ucrania.",
           "link": "https://es.investing.com/news/commodities-news/el-primer-ministro-de-finlandia-descarta-comprar-gas-a-rusia-mientras-dure-la-guerra-en-ucrania-93CH-3886595",
           "fuente": "Investing",
-          "imagen": "https://content-media.investing.com/news/NaturalGas_800x533_L_1622740393.jpg",
+          "imagen": "https://content-media.investing.com/news/NaturalGas_150x108_S_1622740393.jpg",
           "fecha": "2026-10-22T21:05:15.000Z",
           "tag": "Geopolítica",
           "nivel": 1,
