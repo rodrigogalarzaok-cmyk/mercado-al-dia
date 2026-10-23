@@ -1,0 +1,58 @@
+# Arma las noticias solas y publica la página (GitHub Pages).
+# Horario acordado con Marc: cada 1 hora de lunes a viernes de 10 a 18 (hora argentina, UTC-3)
+# y cada 2 horas el resto. GitHub puede atrasar unos minutos cada corrida.
+name: Actualizar noticias
+
+on:
+  schedule:
+    - cron: '0 13-21 * * 1-5'                    # lunes a viernes, 10 a 18 de Argentina: cada hora
+    - cron: '0 0,2,4,6,8,10,12,22 * * 1-5'       # lunes a viernes, el resto: cada 2 horas
+    - cron: '0 */2 * * 0,6'                      # sábados y domingos: cada 2 horas
+  workflow_dispatch:                             # botón para correrla a mano desde GitHub
+  push:
+    branches: [main]
+    paths: ['public/index.html', 'armar.mjs', 'calendario.mjs', '.github/workflows/actualizar.yml']
+
+permissions:
+  contents: write    # guardar noticias.json, las memorias (cache-*.json) y las fijadas
+  pages: write
+  id-token: write
+
+concurrency:
+  group: actualizar
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.publicar.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Armar noticias, precios y calendario
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TZ: America/Argentina/Buenos_Aires
+        run: node armar.mjs
+
+      - name: Guardar noticias y memorias
+        run: |
+          git config user.name "Mercado al día (automático)"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/noticias.json cache-*.json fijadas.json
+          git diff --cached --quiet || git commit -m "Noticias actualizadas"
+          git push || (git pull --rebase && git push)
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: publicar
+        uses: actions/deploy-pages@v4

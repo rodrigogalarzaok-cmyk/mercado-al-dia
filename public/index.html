@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mercado al Día</title>
+<meta name="description" content="Las noticias de mercado más importantes del día, ordenadas por lo que realmente mueve tu plata.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet">
+<style>
+  /* Siempre claro: el tono crema del fondo de WhatsApp, que la gente ya conoce y le da confianza. */
+  :root {
+    color-scheme: light;
+    --bg: #ece5dd;
+    --card: #ffffff;
+    --text: #16181d;
+    --muted: #667078;
+    --line: #ddd4c8;
+    --accent: #00806a;
+    --up: #0f8a5f;
+    --down: #c8372d;
+    --chip: #f2ede6;
+    --shadow: 0 1px 1.5px rgba(0,0,0,.06);
+    --fondo-pagina: #060f22;          /* azul marino bien oscuro */
+    --sobre-fondo: rgba(255,255,255,.72);   /* textos que van directo sobre el azul */
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--fondo-pagina);
+    color: var(--text);
+    font: 15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Cabecera ── */
+  /* Cabecera "grafito" (elegida por Marc): gris carbón casi negro, se aclara de la mitad para arriba. */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: linear-gradient(to top, #161b22 0%, #1d232c 50%, #2b333f 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 2px 8px rgba(0,0,0,.12);
+    color: #fff;
+  }
+  /* Título al medio de la pantalla, el menú (tres rayitas) a la derecha; la columna izquierda queda vacía para equilibrar. */
+  .barra {
+    max-width: 720px; margin: 0 auto; padding: 12px 16px 4px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
+  }
+  .barra > div:first-child { grid-column: 2; grid-row: 1; text-align: center; }
+  .marca { font-family: Newsreader, Georgia, serif; font-weight: 700; font-size: 22px; letter-spacing: -.01em; line-height: 1; }
+  .marca span { color: #7dd3b0; }
+  .donar {
+    background: var(--accent); color: #fff;
+    font-weight: 600; font-size: 14px;
+    padding: 8px 16px; border-radius: 999px;
+  }
+
+  /* ── Menú de tres rayitas: Calendario económico y Donar ── */
+  .menu { grid-column: 3; grid-row: 1; justify-self: end; position: relative; }
+  .hamburguesa {
+    appearance: none; border: 0; background: none; cursor: pointer; color: var(--text);
+    width: 40px; height: 40px; border-radius: 10px; display: grid; place-content: center; gap: 5px;
+  }
+  .hamburguesa span { display: block; width: 22px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
+  .hamburguesa[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburguesa[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hamburguesa[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (hover: hover) { .hamburguesa:hover { background: rgba(255,255,255,.15); } }
+  .hamburguesa:focus-visible { outline: 2px solid var(--accent); }
+  .menu-lista {
+    position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; min-width: 220px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  }
+  .menu-lista[hidden] { display: none; }
+  .menu-item {
+    display: flex; align-items: center; gap: 10px; width: 100%;
+    appearance: none; border: 0; background: none; cursor: pointer; text-align: left;
+    font: 600 15px/1.2 Inter, system-ui, sans-serif; color: var(--text);
+    padding: 12px; border-radius: 10px;
+  }
+  .menu-item { white-space: nowrap; }
+  .menu-item svg { width: 20px; height: 20px; flex: none; color: var(--accent); }
+  .menu-item + .menu-item { border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; }
+  @media (hover: hover) { .menu-item:hover { background: var(--chip); } }
+
+  /* ── Pestañas ── */
+  .pestanas {
+    max-width: 720px; margin: 0 auto; padding: 0 16px;
+    display: flex; gap: 4px;
+  }
+  .pestana {
+    flex: 1; appearance: none; border: 0; background: none; cursor: pointer;
+    font: 600 15px/1 Inter, system-ui, sans-serif; color: var(--muted);
+    padding: 12px 4px 13px; border-bottom: 2px solid transparent;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  /* Banderas dibujadas (en Windows los emojis de banderas salen como letras) y el mundo como emoji. */
+  .pestana { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+  .pestana .bandera { width: 20px; height: 14px; }
+  .pestana .emoji { font-size: 16px; line-height: 1; }
+  .pestana[aria-selected="true"] { color: #fff; border-bottom-color: #fff; }
+  @media (hover: hover) { header .pestana:hover { color: #fff !important; } }
+  header .pestana:not([aria-selected="true"]) { color: rgba(255,255,255,.65); }
+  header .hamburguesa { color: #fff; }
+  .pestana:focus-visible, header .hamburguesa:focus-visible { outline-color: #fff; }
+  .pestana:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 6px; }
+
+  main { max-width: 720px; margin: 0 auto; padding: 0 16px 40px; }
+
+  /* ── Precios ── */
+  .precios {
+    display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+    margin: 14px -16px 0; padding: 0 16px 2px;
+    scroll-snap-type: x proximity; scroll-padding-inline: 16px;   /* al deslizar, respeta el margen */
+  }
+  .precios::-webkit-scrollbar { display: none; }
+  /* La fila va al medio cuando entra entera; si no entra (celular) se desliza desde el primero. */
+  .precio:first-child { margin-left: auto; }
+  .precio:last-child { margin-right: auto; }
+  .precio {
+    flex: none; scroll-snap-align: start; text-align: center;
+    /* Azul marino más claro que el fondo, para que se noten; números en blanco. */
+    background: #16305a; border: 1px solid #22416f; border-radius: 12px;
+    padding: 8px 10px; width: 116px;   /* todos del mismo tamaño */
+  }
+  .precio .n { font-size: 12px; color: #a9bbd6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .precio .v { color: #fff; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .precio .c { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* Sobre el azul, el verde y el rojo un poco más vivos para que se lean. */
+  .precio .up { color: #3ddc97; } .precio .down { color: #ff7070; }
+  .precio .c.sub { color: #a9bbd6; font-weight: 500; font-size: 11px; }
+  .up { color: var(--up); } .down { color: var(--down); }
+
+  /* ── Suben / bajan ── */
+  .movs:empty { display: none; }
+  .movs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 22px; }
+  .mov { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
+  .mov h3 { margin: 0 0 6px; text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .fila { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 2px 0; }
+  .fila b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .fila span { font-weight: 600; font-variant-numeric: tabular-nums; flex: none; }
+
+  /* ── Calendario económico (ventana; se abre desde el menú) ── */
+  .cal-fondo { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.35); display: none; }
+  .cal-fondo.abierto { display: flex; justify-content: center; align-items: flex-end; }
+  .cal { background: var(--bg); width: 100%; max-width: 560px; max-height: 88vh; border-radius: 18px 18px 0 0; display: flex; flex-direction: column; }
+  @media (min-width: 640px) { .cal-fondo.abierto { align-items: center; } .cal { border-radius: 18px; max-height: 82vh; } }
+  .cal-cabeza { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; padding: 14px 12px 10px; border-bottom: 1px solid var(--line); }
+  .cal-cabeza > div { grid-column: 2; text-align: center; }
+  .cal-cabeza h2 { margin: 0; font-family: Newsreader, Georgia, serif; font-size: 21px; line-height: 1.2; }
+  .cal-cabeza p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+  .cerrar { grid-column: 3; grid-row: 1; appearance: none; border: 0; background: none; cursor: pointer; font-size: 28px; line-height: 1; color: var(--muted); }
+  .cal-lista { overflow-y: auto; padding: 4px 16px 28px; }
+  .cal-dia { font-size: 13px; font-weight: 700; margin: 16px 0 6px; }
+  .cal-dia span { color: var(--accent); }
+  .cal-grupo { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .cal-evento { display: grid; grid-template-columns: 22px 44px 1fr; align-items: center; gap: 10px; padding: 11px 12px; font-size: 14px; }
+  .cal-evento + .cal-evento { border-top: 1px solid var(--line); }
+  .cal-evento .h { font-weight: 600; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bandera { width: 22px; height: 15px; display: block; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.08); }
+
+  /* ── Fuentes (ventana; se abre desde el menú, usa el mismo formato que el calendario) ── */
+  .fuentes-intro { margin: 14px 0 0; font-size: 14px; color: var(--muted); text-align: center; }
+  .fuente { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px; font-size: 14px; font-weight: 600; }
+  .fuente + .fuente { border-top: 1px solid var(--line); }
+  .fuente svg { width: 16px; height: 16px; flex: none; color: var(--muted); }
+  @media (hover: hover) { .fuente:hover { background: var(--chip); } }
+
+  .titulo-seccion {
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    margin: 26px 0 10px;
+  }
+
+  /* ── Noticias ── */
+  .noticias { display: flex; flex-direction: column; gap: 14px; }
+  .nota {
+    display: block; background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
+    transition: transform .15s ease;
+  }
+  .nota:active { transform: scale(.99); }
+  @media (hover: hover) { .nota:hover { border-color: var(--muted); } }
+  .foto { aspect-ratio: 16 / 9; background: var(--chip); position: relative; overflow: hidden; }
+  .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .num-chico { display: none; }
+  .nota.sin-foto { display: block; }
+  .nota.sin-foto .foto { display: none; }
+  .nota.sin-foto .num-chico {
+    display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 8px; vertical-align: middle;
+    border-radius: 50%; background: var(--text); color: var(--card); font-size: 12px; font-weight: 700;
+  }
+  .foto .sin { position: absolute; inset: 0; display: grid; place-items: center; font-family: Newsreader, serif; font-size: 28px; font-weight: 700; color: var(--muted); }
+  .num {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(0,0,0,.62); color: #fff; font-weight: 700; font-size: 13px;
+    width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  }
+  .cuerpo { padding: 12px 14px 14px; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); }
+  .nota h2 {
+    font-family: Newsreader, Georgia, serif; font-weight: 700;
+    font-size: 20px; line-height: 1.22; letter-spacing: -.005em;
+    margin: 4px 0 6px; text-wrap: pretty;
+  }
+  .nota p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  .meta { font-size: 12px; color: var(--muted); }
+  .meta b { color: var(--text); font-weight: 600; }
+
+  @media (min-width: 640px) {
+    .nota { display: grid; grid-template-columns: 230px 1fr; }
+    .nota .foto { aspect-ratio: auto; min-height: 100%; }
+    .nota h2 { font-size: 19px; }
+  }
+
+  .estado { text-align: center; color: var(--muted); padding: 40px 0; }
+  main > .noticias > .estado { color: var(--sobre-fondo); }
+  footer { max-width: 720px; margin: 0 auto; padding: 0 16px 40px; color: var(--sobre-fondo); font-size: 12px; text-align: center; }
+  main > .titulo-seccion { color: var(--sobre-fondo); }
+  /* El Donar del pie va en el mismo azul que los cuadraditos de precios. */
+  footer .donar { display: inline-block; margin: 0 0 14px; background: #16305a; border: 1px solid #22416f; color: #fff; }
+
+  /* ── Redes de Marc (igual que en Tasita: logo + @usuario, sin recuadro) ── */
+  .redes { display: flex; justify-content: center; align-items: center; gap: 18px; margin: 0 0 16px; }
+  .red { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; letter-spacing: .2px; transition: opacity .18s; }
+  .red.ig { color: #e1306c; }
+  .red.tt { color: #fff; }
+  @media (hover: hover) { .red:hover { opacity: .8; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="barra">
+    <div>
+      <div class="marca">Mercado<span>.</span>al día</div>
+    </div>
+    <div class="menu">
+      <button class="hamburguesa" id="abrir-menu" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu-lista"><span></span><span></span><span></span></button>
+      <div class="menu-lista" id="menu-lista" hidden>
+        <a class="menu-item" data-donar href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+          Donar
+        </a>
+        <button class="menu-item" id="abrir-cal" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1" fill="currentColor"/><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="16" cy="15" r="1" fill="currentColor"/></svg>
+          Calendario económico
+        </button>
+        <button class="menu-item" id="abrir-fuentes" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v12a2 2 0 0 0 2-2V9"/><path d="M4 5v13a2 2 0 0 0 2 2h12"/><path d="M8 9h6M8 13h6M8 17h3"/></svg>
+          Fuentes
+        </button>
+      </div>
+    </div>
+  </div>
+  <nav class="pestanas" role="tablist">
+    <button class="pestana" role="tab" data-region="eeuu"><svg class="bandera" viewBox="0 0 19 10" preserveAspectRatio="none" aria-hidden="true"><rect width="19" height="10" fill="#b22234"/><path d="M0 1.15h19M0 2.69h19M0 4.23h19M0 5.77h19M0 7.31h19M0 8.85h19" stroke="#fff" stroke-width=".77"/><rect width="7.6" height="5.38" fill="#3c3b6e"/></svg>EE.UU.</button>
+    <button class="pestana" role="tab" data-region="argentina"><svg class="bandera" viewBox="0 0 9 6" preserveAspectRatio="none" aria-hidden="true"><rect width="9" height="6" fill="#74acdf"/><rect y="2" width="9" height="2" fill="#fff"/><circle cx="4.5" cy="3" r=".7" fill="#f6b40e"/></svg>Argentina</button>
+    <button class="pestana" role="tab" data-region="mundo"><span class="emoji" aria-hidden="true">🌎</span>Mundo</button>
+  </nav>
+</header>
+
+<main>
+  <div class="precios" id="precios"></div>
+  <div class="titulo-seccion" id="titulo-seccion">Lo más importante de hoy</div>
+  <div class="noticias" id="noticias"><div class="estado">Cargando noticias…</div></div>
+  <!-- Las que más suben y bajan van abajo de todo, después de las noticias. -->
+  <div class="movs" id="movs"></div>
+</main>
+
+<div class="cal-fondo" id="cal-fondo">
+  <div class="cal" role="dialog" aria-modal="true" aria-labelledby="cal-titulo">
+    <div class="cal-cabeza">
+      <div><h2 id="cal-titulo">Calendario económico</h2><p>EE.UU. y Argentina · hora argentina</p></div>
+      <button class="cerrar" id="cerrar-cal" type="button" aria-label="Cerrar">×</button>
+    </div>
+    <div class="cal-lista" id="cal-lista"></div>
+  </div>
+</div>
+
+<div class="cal-fondo" id="fuentes-fondo">
+  <div class="cal" role="dialog" aria-modal="true" aria-labelledby="fuentes-titulo">
+    <div class="cal-cabeza">
+      <div><h2 id="fuentes-titulo">Fuentes de información</h2><p>Lo que leemos todos los días para armar la página</p></div>
+      <button class="cerrar" id="cerrar-fuentes" type="button" aria-label="Cerrar">×</button>
+    </div>
+    <div class="cal-lista" id="fuentes-lista"></div>
+  </div>
+</div>
+
+<footer>
+  <a class="donar" data-donar href="#" target="_blank" rel="noopener">Donar</a>
+  <!-- Redes de Marc: mismos logos y formato que en Tasita. -->
+  <div class="redes">
+    <a class="red ig" href="https://www.instagram.com/rodrigogalarza__/" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <defs><radialGradient id="ig-bg" cx="25%" cy="115%" r="145%"><stop offset="0%" stop-color="#ffd600"/><stop offset="22%" stop-color="#ff6930"/><stop offset="42%" stop-color="#fe3b72"/><stop offset="68%" stop-color="#c913b9"/><stop offset="100%" stop-color="#3d52f4"/></radialGradient></defs>
+        <rect x="0.5" y="0.5" width="23" height="23" rx="5.5" fill="url(#ig-bg)"/>
+        <rect x="4.5" y="4.5" width="15" height="15" rx="4" stroke="white" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="3.8" stroke="white" stroke-width="1.8"/>
+        <circle cx="17.2" cy="6.8" r="1.3" fill="white"/>
+      </svg>
+      @rodrigogalarza__
+    </a>
+    <a class="red tt" href="https://www.tiktok.com/@rodrigogalarzaa" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="0.5" y="0.5" width="23" height="23" rx="5" fill="#010101"/>
+        <path transform="translate(1.5,0)" fill="#ee1d52" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+        <path transform="translate(-1.5,0)" fill="#69c9d0" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+        <path fill="white" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+      </svg>
+      @rodrigogalarzaa
+    </a>
+  </div>
+  <div>Cada noticia lleva a su nota original. Los resúmenes son propios. Esto no es una recomendación de inversión.</div>
+</footer>
+
+<script>
+  // Link de donación (Cafecito, Mercado Pago, etc.). Se cambia acá.
+  const LINK_DONAR = '#';
+  // Mientras no haya link de donación, el botón Donar no se muestra (ni en el menú ni al final).
+  document.querySelectorAll('[data-donar]').forEach(a => LINK_DONAR === '#' ? a.remove() : (a.href = LINK_DONAR));
+
+  const num = (v, dec = 2) => v == null ? '–' : v.toLocaleString('es-AR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  const pct = v => v == null ? '' : `${v > 0 ? '+' : ''}${num(v)}%`;
+  const clase = v => v == null ? '' : v >= 0 ? 'up' : 'down';
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+  function hace(fecha) {
+    const min = Math.round((Date.now() - new Date(fecha)) / 60000);
+    if (min < 60) return `hace ${Math.max(min, 1)} min`;
+    const h = Math.round(min / 60);
+    return h < 24 ? `hace ${h} h` : `hace ${Math.round(h / 24)} d`;
+  }
+
+  // Riesgo país y tasa de la Fed van en rojo cuando suben (subir es malo).
+  // La Fed trae su propio texto ("subió 0,25") en vez del porcentaje.
+  const cambio = p => p.cambioTexto ?? pct(p.variacion);
+  const cambioClase = p => p.inverso && p.variacion ? (p.variacion > 0 ? 'down' : 'up') : clase(p.variacion);
+
+  function precio(p) {
+    const dec = p.precio >= 1000 ? 0 : 2;
+    const valor = p.texto ? esc(p.texto)
+      : p.unidad === 'US$' ? `US$ ${num(p.precio, dec)}`
+      : p.unidad === '$' ? `$ ${num(p.precio, 0)}`
+      : p.unidad === '%' ? `${num(p.precio, p.sub ? 1 : 2)}%`
+      : p.unidad === 'pb' ? `${num(p.precio, 0)} pb`
+      : num(p.precio, dec);
+    return `<div class="precio"><div class="n">${esc(p.nombre)}</div><div class="v">${valor}</div><div class="c ${p.sub ? 'sub' : cambioClase(p)}">${p.sub ? esc(p.sub) : cambio(p) || '&nbsp;'}</div></div>`;
+  }
+
+  function lista(titulo, items) {
+    if (!items.length) return '';
+    return `<div class="mov"><h3>${titulo}</h3>${items.map(i =>
+      `<div class="fila" title="${esc(i.nombre)}"><b>${esc(i.simbolo)}</b><span class="${clase(i.variacion)}">${pct(i.variacion)}</span></div>`).join('')}</div>`;
+  }
+
+  // Si la foto no carga, se esconde el recuadro y la nota queda solo con texto (nunca un cuadro vacío).
+  function nota(n, i) {
+    const otros = n.medios > 1 ? ` · ${n.medios} medios` : '';
+    return `<a class="nota${n.imagen ? '' : ' sin-foto'}" href="${esc(n.link)}" target="_blank" rel="noopener">
+      ${n.imagen ? `<div class="foto"><img src="${esc(n.imagen)}" alt="" loading="${i < 2 ? 'eager' : 'lazy'}" referrerpolicy="no-referrer" onerror="this.closest('.nota').classList.add('sin-foto')"><div class="num">${i + 1}</div></div>` : ''}
+      <div class="cuerpo">
+        <span class="num-chico">${i + 1}</span><span class="tag">${esc(n.tag)}</span>
+        <h2>${esc(n.titulo)}</h2>
+        ${n.resumen ? `<p>${esc(n.resumen)}</p>` : ''}
+        <div class="meta"><b>${esc(n.fuente)}</b> · ${hace(n.fecha)}${otros}</div>
+      </div>
+    </a>`;
+  }
+
+  const PESTAÑAS = ['eeuu', 'argentina', 'mundo'];
+  const TITULOS = { eeuu: 'Lo más importante en EE.UU.', argentina: 'Lo más importante en Argentina', mundo: 'Lo más importante en el mundo' };
+  let datos = null;
+
+  // La pestaña va en la dirección (#argentina) para poder compartir el link directo.
+  function pestañaInicial() {
+    const h = location.hash.slice(1);
+    if (PESTAÑAS.includes(h)) return h;
+    try { const g = localStorage.getItem('pestana'); if (PESTAÑAS.includes(g)) return g; } catch {}
+    return PESTAÑAS[0];
+  }
+
+  function mostrar(region, { subir = false } = {}) {
+    document.querySelectorAll('.pestana').forEach(b => b.setAttribute('aria-selected', b.dataset.region === region));
+    try { localStorage.setItem('pestana', region); } catch {}
+    if (location.hash.slice(1) !== region) history.replaceState(null, '', '#' + region);
+    if (!datos) return;
+    const d = datos.secciones[region];
+    document.getElementById('titulo-seccion').textContent = TITULOS[region];
+    document.getElementById('precios').innerHTML = d.precios.map(precio).join('');
+    document.getElementById('precios').scrollLeft = 0;
+    document.getElementById('movs').innerHTML = lista('Más suben', d.suben) + lista('Más bajan', d.bajan);
+    document.getElementById('noticias').innerHTML = d.noticias.length
+      ? d.noticias.map(nota).join('')
+      : '<div class="estado">Todavía no hay noticias importantes hoy. Volvé en un rato.</div>';
+    if (subir) window.scrollTo({ top: 0 });
+  }
+
+  document.querySelectorAll('.pestana').forEach(b => b.addEventListener('click', () => mostrar(b.dataset.region, { subir: true })));
+  window.addEventListener('hashchange', () => mostrar(pestañaInicial()));
+
+  // ── Calendario económico ──
+  const BANDERAS = {
+    us: '<svg class="bandera" viewBox="0 0 19 10" preserveAspectRatio="none" aria-label="EE.UU."><rect width="19" height="10" fill="#b22234"/><path d="M0 1.15h19M0 2.69h19M0 4.23h19M0 5.77h19M0 7.31h19M0 8.85h19" stroke="#fff" stroke-width=".77"/><rect width="7.6" height="5.38" fill="#3c3b6e"/></svg>',
+    ar: '<svg class="bandera" viewBox="0 0 9 6" preserveAspectRatio="none" aria-label="Argentina"><rect width="9" height="6" fill="#74acdf"/><rect y="2" width="9" height="2" fill="#fff"/><circle cx="4.5" cy="3" r=".7" fill="#f6b40e"/></svg>',
+  };
+  function nombreDia(fecha) {
+    const d = new Date(fecha + 'T12:00:00');
+    const txt = d.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(',', '');
+    const hoy = new Date().toLocaleDateString('en-CA');
+    const mañana = new Date(Date.now() + 864e5).toLocaleDateString('en-CA');
+    const cap = txt[0].toUpperCase() + txt.slice(1);
+    return fecha === hoy ? `<span>Hoy</span> · ${txt}` : fecha === mañana ? `<span>Mañana</span> · ${txt}` : cap;
+  }
+  function pintarCalendario() {
+    const hoy = new Date().toLocaleDateString('en-CA');
+    const eventos = (datos?.calendario || []).filter(e => e.fecha >= hoy);
+    const porDia = {};
+    for (const e of eventos) (porDia[e.fecha] ||= []).push(e);
+    document.getElementById('cal-lista').innerHTML = eventos.length
+      ? Object.entries(porDia).map(([fecha, lista]) => `<div class="cal-dia">${nombreDia(fecha)}</div><div class="cal-grupo">${lista.map(e =>
+          `<div class="cal-evento">${BANDERAS[e.pais] || ''}<span class="h">${esc(e.hora)}</span><span>${esc(e.evento)}</span></div>`).join('')}</div>`).join('')
+      : '<div class="estado">No hay datos importantes en los próximos días.</div>';
+  }
+  const fondoCal = document.getElementById('cal-fondo');
+  function abrirCal() { pintarCalendario(); fondoCal.classList.add('abierto'); document.body.style.overflow = 'hidden'; document.getElementById('cal-lista').scrollTop = 0; }
+  function cerrarCal() { fondoCal.classList.remove('abierto'); document.body.style.overflow = ''; }
+  document.getElementById('abrir-cal').addEventListener('click', () => { cerrarMenu(); abrirCal(); });
+
+  // ── Fuentes: los medios que se leen, agrupados por país ──
+  const ORDEN_PAISES = ['Argentina', 'Estados Unidos', 'Internacional', 'Reino Unido', 'España', 'Francia', 'Alemania', 'Rusia', 'Canadá', 'Uruguay', 'Brasil', 'México', 'Hong Kong', 'Japón', 'Qatar'];
+  const FLECHA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+  function pintarFuentes() {
+    const f = datos?.fuentes;
+    if (!f) { document.getElementById('fuentes-lista').innerHTML = '<div class="estado">Cargando…</div>'; return; }
+    const porPais = {};
+    for (const m of f.medios) (porPais[m.pais] ||= []).push(m);
+    const paises = Object.keys(porPais).sort((a, b) => ((ORDEN_PAISES.indexOf(a) + 1) || 99) - ((ORDEN_PAISES.indexOf(b) + 1) || 99));
+    const fila = (nombre, web) => `<a class="fuente" href="${esc(web)}" target="_blank" rel="noopener"><span>${esc(nombre)}</span>${FLECHA}</a>`;
+    const cantPaises = paises.filter(p => p !== 'Internacional').length;
+    document.getElementById('fuentes-lista').innerHTML =
+      `<p class="fuentes-intro">Leemos <b>${f.medios.length} medios</b> de ${cantPaises} países.</p>` +
+      paises.map(p => `<div class="cal-dia">${esc(p)}</div><div class="cal-grupo">${porPais[p].map(m => fila(m.nombre, m.web)).join('')}</div>`).join('');
+  }
+  const fondoFuentes = document.getElementById('fuentes-fondo');
+  function abrirFuentes() { pintarFuentes(); fondoFuentes.classList.add('abierto'); document.body.style.overflow = 'hidden'; document.getElementById('fuentes-lista').scrollTop = 0; }
+  function cerrarFuentes() { fondoFuentes.classList.remove('abierto'); document.body.style.overflow = ''; }
+  document.getElementById('abrir-fuentes').addEventListener('click', () => { cerrarMenu(); abrirFuentes(); });
+  document.getElementById('cerrar-fuentes').addEventListener('click', cerrarFuentes);
+  fondoFuentes.addEventListener('click', e => { if (e.target === fondoFuentes) cerrarFuentes(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarFuentes(); });
+
+  // ── Menú de tres rayitas ──
+  const botonMenu = document.getElementById('abrir-menu'), listaMenu = document.getElementById('menu-lista');
+  function cerrarMenu() { listaMenu.hidden = true; botonMenu.setAttribute('aria-expanded', 'false'); }
+  botonMenu.addEventListener('click', e => {
+    e.stopPropagation();
+    const abrir = listaMenu.hidden;
+    listaMenu.hidden = !abrir; botonMenu.setAttribute('aria-expanded', String(abrir));
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.menu')) cerrarMenu(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarMenu(); });
+  document.getElementById('cerrar-cal').addEventListener('click', cerrarCal);
+  fondoCal.addEventListener('click', e => { if (e.target === fondoCal) cerrarCal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarCal(); });
+
+  async function cargar() {
+    mostrar(pestañaInicial());
+    try {
+      const r = await fetch('noticias.json?t=' + Date.now());
+      datos = await r.json();
+      mostrar(pestañaInicial());
+    } catch (e) {
+      document.getElementById('noticias').innerHTML = '<div class="estado">No pudimos cargar las noticias. Probá de nuevo en un rato.</div>';
+    }
+  }
+  cargar();
+</script>
+</body>
+</html>

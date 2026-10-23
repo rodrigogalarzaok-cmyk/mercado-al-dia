@@ -1,0 +1,5 @@
+# La clave de Groq nunca se sube (en GitHub va como secreto: GROQ_API_KEY).
+clave-groq.txt
+# Archivo para revisar puntajes (VOLCAR=1 node armar.mjs).
+todas-las-notas.json
+node_modules/
