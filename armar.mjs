@@ -795,7 +795,10 @@ const elegidas = { eeuu: [], argentina: [], mundo: [] };
 }
 
 // Orden de los cuadraditos de precios (Marc, 2026-10-22): en EE.UU. primero S&P 500, inflación y tasa de la Fed.
-const ORDEN_PRECIOS = { eeuu: ['S&P 500', 'Inflación', 'Tasa de la Fed', 'Bono 10 años', 'Nasdaq'] };
+const ORDEN_PRECIOS = {
+  eeuu: ['S&P 500', 'Inflación', 'Tasa de la Fed', 'Bono 10 años', 'Nasdaq'],
+  mundo: ['Oro', 'Brent', 'Bitcoin', 'Plata', 'Brasil (EWZ)'],
+};
 const lugar = (r, p) => { const i = (ORDEN_PRECIOS[r] || []).indexOf(p.nombre); return i === -1 ? 99 : i; };
 
 const secciones = {};
