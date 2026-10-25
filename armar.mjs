@@ -8,8 +8,9 @@ import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { calendario } from './calendario.mjs';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36';
-const HORAS_ATRAS = 24;
+const HORAS_ATRAS = 48;   // las de más de 24 h solo sirven para completar una pestaña que quedó corta
 const CANTIDAD = 10;   // noticias por pestaña (como máximo)
+const MINIMO = 8;      // noticias por pestaña (como mínimo, si hay con qué: Marc, "con 4 no hacemos nada")
 const PUNTAJE_MINIMO = 35;   // por debajo es relleno: mejor mostrar menos
 
 // ───────────────────────── Fuentes ─────────────────────────
@@ -367,6 +368,7 @@ function puntuar(grupo, titularesGoogle) {
   if (RUIDO.some(p => titulo.includes(p))) return null;
   const horas = (Date.now() - Math.max(...grupo.map(n => +n.fecha))) / 3600e3;
   const frescura = Math.max(0, 8 - horas / 3);
+  const edad = horas;   // para la selección final
 
   // 5. Bolsa sí, bolsillo y política no.
   const tituloMostrar = paraBuscar(mostrar.titulo);
@@ -403,6 +405,7 @@ function puntuar(grupo, titularesGoogle) {
     nivel: tema.nivel,
     medios: medios.size,
     puntaje,
+    horas: Math.round(edad),
     pal: [...principal.pal],
     detalle: { tema: tema.peso, cobertura: Math.round(cobertura), gigante, frescura: Math.round(frescura), soloArgentinos, bolsa, elecciones, empresa, noInversion, sinTema },
   };
@@ -459,11 +462,12 @@ POLÍTICA: peleas entre funcionarios, internas, polémicas, insultos, encuestas,
 
 EMPRESAS: importa el resultado frente a lo esperado, cambios de previsiones, márgenes, flujo de caja, deuda e inversión. Crecer en ingresos no es mejorar la rentabilidad; un resultado positivo no es una sorpresa positiva. Una empresa mediana o chica también vale si el hecho es material.
 
-ESTADO de cada noticia, elegí uno: "hecho" (confirmado), "dato_oficial" (de un banco central, organismo de estadística o empresa), "anuncio", "propuesta" (todavía no aprobada), "estimacion", "rumor", "opinion" (columna, análisis o declaración de un analista). Los rumores no se publican.
+ESTADO de cada noticia, elegí uno: "hecho" (confirmado), "dato_oficial" (de un banco central, organismo de estadística o empresa), "anuncio", "propuesta" (todavía no aprobada), "estimacion", "rumor", "analisis" (análisis o recomendación de un banco, broker o analista sobre activos concretos: qué acciones, CEDEAR, bonos o sectores, precios objetivo, cómo afecta un hecho a la bolsa), "opinion" (columna o declaración general sin activos concretos). Los rumores no se publican.
+Un "analisis" sobre activos concretos es contenido de inversión valioso para este diario: puntualo por lo útil que es para decidir una inversión (normalmente 55-75), no lo bajes por ser análisis. Ej.: "Los CEDEAR que prometen más suba tras las elecciones" = 65; "Balotaje en Brasil: por qué es clave para Arcor, Despegar y Mercado Libre" = 65; "Galicia puede subir 97% según Morgan Stanley" = 75.
 
 Para cada noticia devolvé:
 - "puntaje": 0 a 100.
-- "estado": uno de los de arriba.
+- "estado": uno de los de arriba (hecho, dato_oficial, anuncio, propuesta, estimacion, analisis, rumor, opinion).
 - "motivo": en una frase corta, por qué le importa al mercado (el mecanismo concreto). Vacío si no hay.
 - "activos": activos, empresas o sectores que puede afectar, separados por coma (ej. "bonos argentinos, riesgo país"). Vacío si no hay.
 - "titulo": SOLO si te paso un título original en otro idioma (dice "original:"), traducilo al español neutro rioplatense, claro, factual, máximo 110 caracteres (cuidado con los apellidos: "Kazaks" es un apellido, no "kazajos"). Si no hay título original, devolvé "".
@@ -539,8 +543,9 @@ async function pasarPorIA(noticias) {
     n.porQue = ia.motivo; n.activos = ia.activos; n.estado = ia.estado;
     // Reglamento: menos de 50 o rumor no se publica ("mejor 5 noticias de alto impacto que 50 irrelevantes").
     // Si pasa: reglas 50% + IA 50%; una opinión baja 10.
-    n.puntaje = ia.puntaje < 50 || ia.estado === 'rumor' ? 0
-      : Math.round(n.puntaje * 0.5 + ia.puntaje * 0.5 - (ia.estado === 'opinion' ? 10 : 0));
+    n.puntaje = Math.round(n.puntaje * 0.5 + ia.puntaje * 0.5 - (ia.estado === 'opinion' ? 10 : 0));
+    n.debajoDelCorte = ia.puntaje < 50;   // no entra en la primera pasada; puede completar (si tiene 40 o más)
+    if (ia.estado === 'rumor' || ia.puntaje < 40) n.puntaje = 0;   // rumores, política y relleno: nunca
   }
   return noticias;
 }
@@ -557,11 +562,15 @@ const ACTIVOS = [
 // se guarda en un archivo y se vuelve a pedir recién a las 12 horas.
 const ARCHIVO_INFLACION = new URL('./cache-inflacion-eeuu.json', import.meta.url);
 async function inflacionEEUU() {
+  let guardado = null;
   try {
-    const guardado = JSON.parse(await readFile(ARCHIVO_INFLACION, 'utf8'));
+    guardado = JSON.parse(await readFile(ARCHIVO_INFLACION, 'utf8'));
     if (Date.now() - guardado.pedido < 12 * 3600e3) return guardado;
   } catch {}
-  const d = await traer('https://api.bls.gov/publicAPI/v1/timeseries/data/CUUR0000SA0', { json: true });
+  // Si la BLS no responde (a veces se cae), sirve el último dato guardado: cambia una vez por mes.
+  let d;
+  try { d = await traer('https://api.bls.gov/publicAPI/v1/timeseries/data/CUUR0000SA0', { json: true }); }
+  catch (e) { if (guardado) return guardado; throw e; }
   // Índice de precios por mes (M13 es el promedio del año y '-' un mes sin dato).
   const indice = {};
   for (const x of d.Results.series[0].data) if (/^M(0[1-9]|1[0-2])$/.test(x.period) && !isNaN(+x.value)) indice[x.year + x.period] = +x.value;
@@ -703,7 +712,37 @@ const NOMBRES_ARG = {
   TXAR: 'Ternium Argentina', VALO: 'Grupo Valores', YPFD: 'YPF',
 };
 
+// Se guarda el último cierre con movimiento (cache-acciones-arg.json): el fin de semana y los feriados
+// BYMA devuelve todo en cero, y en vez de dejar la lista vacía se muestra ese cierre ("cierre del viernes 23/10").
+const ARCHIVO_ACCIONES_AR = new URL('./cache-acciones-arg.json', import.meta.url);
 async function movimientosArg() {
+  const hoy = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' });
+  const delGuardado = async () => {
+    try {
+      const g = JSON.parse(await readFile(ARCHIVO_ACCIONES_AR, 'utf8'));
+      if (g.dia === hoy) return [g.suben, g.bajan, ''];
+      const f = new Date(g.dia + 'T12:00:00Z');
+      const dia = f.toLocaleDateString('es-AR', { weekday: 'long', timeZone: 'UTC' });
+      return [g.suben, g.bajan, `Cierre del ${dia} ${f.getUTCDate()}/${f.getUTCMonth() + 1}`];
+    } catch { return [[], [], '']; }
+  };
+  // Respaldo: data912 tiene la variación del último día que operó la bolsa (sirve el fin de semana).
+  const deRespaldo = async () => {
+    try {
+      const d = await traer('https://data912.com/live/arg_stocks', { json: true });
+      const lista = d.filter(x => NOMBRES_ARG[x.symbol] && Number.isFinite(x.pct_change) && x.c > 0)
+        .map(x => ({ simbolo: x.symbol, nombre: NOMBRES_ARG[x.symbol], precio: x.c, variacion: x.pct_change }))
+        .sort((a, b) => b.variacion - a.variacion);
+      if (!lista.length) return delGuardado();
+      // Un día de semana data912 trae lo de hoy; el fin de semana, lo del último día hábil (no contempla feriados).
+      const f = new Date(hoy + 'T12:00:00Z');
+      if ([0, 6].includes(f.getUTCDay())) do f.setUTCDate(f.getUTCDate() - 1); while ([0, 6].includes(f.getUTCDay()));
+      const dia = f.toISOString().slice(0, 10);
+      const suben = lista.filter(x => x.variacion > 0).slice(0, 5), bajan = lista.filter(x => x.variacion < 0).slice(-5).reverse();
+      await writeFile(ARCHIVO_ACCIONES_AR, JSON.stringify({ dia, suben, bajan }));
+      return delGuardado();
+    } catch { return delGuardado(); }
+  };
   try {
     const d = await traer('https://open.bymadata.com.ar/vanoms-be-core/rest/api/bymadata/free/leading-equity', {
       json: true, method: 'POST',
@@ -715,13 +754,16 @@ async function movimientosArg() {
       .map(x => ({ simbolo: x.symbol, nombre: NOMBRES_ARG[x.symbol] || x.symbol, precio: x.trade || x.closingPrice,
         variacion: ((x.trade || x.closingPrice) / x.previousClosingPrice - 1) * 100 }))
       .sort((a, b) => b.variacion - a.variacion);
-    return [lista.filter(x => x.variacion > 0).slice(0, 5), lista.filter(x => x.variacion < 0).slice(-5).reverse()];
-  } catch (e) { console.warn('No respondió el panel líder de BYMA', e.message); return [[], []]; }
+    const suben = lista.filter(x => x.variacion > 0).slice(0, 5), bajan = lista.filter(x => x.variacion < 0).slice(-5).reverse();
+    if (!suben.length && !bajan.length) return deRespaldo();   // fin de semana o feriado
+    await writeFile(ARCHIVO_ACCIONES_AR, JSON.stringify({ dia: hoy, suben, bajan }));
+    return [suben, bajan, ''];
+  } catch (e) { console.warn('No respondió el panel líder de BYMA', e.message); return deRespaldo(); }
 }
 
 // ───────────────────────── Armar todo ─────────────────────────
 
-const [noticiasTodas, listaPrecios, [suben, bajan], [subenArg, bajanArg], agenda] = await Promise.all([
+const [noticiasTodas, listaPrecios, [suben, bajan], [subenArg, bajanArg, cierreArg], agenda] = await Promise.all([
   juntarNoticias(), precios(), movimientos(), movimientosArg(), calendario().catch(e => { console.warn('No se pudo armar el calendario', e.message); return []; }),
 ]);
 // Para revisar el puntaje de todas las notas (no solo las elegidas): VOLCAR=1 node armar.mjs
@@ -779,11 +821,15 @@ const elegidas = { eeuu: [], argentina: [], mundo: [] };
   const porTema = {}, porProtagonista = {}, puestas = [];
   const misma = (a, b) => { const pa = new Set(a.pal), pb = new Set(b.pal); return (a.tag === b.tag && parecido(pa, pb) >= 0.3) || parecido(pa, pb) >= 0.5; };
   const fijadasPuestas = {};
-  const enOrden = [...candidatas].filter(n => n.puntaje >= PUNTAJE_MINIMO)
-    .sort((a, b) => (b.fijada - a.fijada) || (b.fijada && a.fijada ? b.ia - a.ia : 0) || (b.puntaje - a.puntaje));
+  // Primera pasada: lo bueno del último día (como siempre). Segunda: si una pestaña quedó con menos de
+  // MINIMO, se completa con lo siguiente mejor de hasta 2 días atrás (Groq 40 o más, nunca rumores ni política).
+  const ordenar = lista => lista.sort((a, b) => (b.fijada - a.fijada) || (b.fijada && a.fijada ? b.ia - a.ia : 0) || (b.puntaje - a.puntaje));
+  const primera = ordenar(candidatas.filter(n => n.puntaje >= PUNTAJE_MINIMO && !n.debajoDelCorte && (n.fijada || n.horas <= 24)));
+  const segunda = ordenar(candidatas.filter(n => n.puntaje >= 25 && !primera.includes(n)));
+  for (const [pasada, enOrden] of [[1, primera], [2, segunda]])
   for (const n of enOrden) {
     const lista = elegidas[n.region];
-    if (!lista || lista.length >= CANTIDAD || puestas.some(m => misma(m, n))) continue;
+    if (!lista || lista.length >= (pasada === 1 ? CANTIDAD : MINIMO) || puestas.some(m => misma(m, n))) continue;
     if (n.fijada && (fijadasPuestas[n.region] = (fijadasPuestas[n.region] || 0) + 1) > FIJADAS_POR_PESTAÑA) n.fijada = false;
     const tema = n.region + '|' + n.tag, prot = protagonistas(n).map(p => n.region + '|' + p);
     if ((porTema[tema] || 0) >= 2 || prot.some(p => (porProtagonista[p] || 0) >= 2)) continue;
@@ -808,7 +854,8 @@ for (const r of PESTAÑAS) {
     precios: listaPrecios.filter(p => p.region === r).sort((a, b) => lugar(r, a) - lugar(r, b)).map(({ region, ...p }) => p),
     suben: r === 'eeuu' ? suben : r === 'argentina' ? subenArg : [],
     bajan: r === 'eeuu' ? bajan : r === 'argentina' ? bajanArg : [],
-    noticias: noticias.map(({ pal, region, resumenOriginal, tituloOriginal, ...n }) => n),
+    cierre: r === 'argentina' ? cierreArg : '',   // "Cierre del viernes 23/10" cuando no es de hoy
+    noticias: noticias.map(({ pal, region, resumenOriginal, tituloOriginal, debajoDelCorte, horas, ...n }) => n),
   };
 }
 

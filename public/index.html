@@ -138,6 +138,8 @@
   /* ── Suben / bajan ── */
   .movs:empty { display: none; }
   .movs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 22px; }
+  .fila-vacia { text-align: center; font-size: 13px; color: var(--muted); padding: 6px 0; }
+  .movs .cierre { grid-column: 1 / -1; text-align: center; font-size: 12px; color: var(--sobre-fondo); }
   .mov { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
   .mov h3 { margin: 0 0 6px; text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
   .fila { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 2px 0; }
@@ -361,8 +363,9 @@
     return `<div class="precio"><div class="n">${esc(p.nombre)}</div><div class="v">${valor}</div><div class="c ${p.sub ? 'sub' : cambioClase(p)}">${p.sub ? esc(p.sub) : cambio(p) || '&nbsp;'}</div></div>`;
   }
 
-  function lista(titulo, items) {
-    if (!items.length) return '';
+  // Si una de las dos listas está vacía (ej. el viernes subieron todas), se avisa en vez de dejar un hueco.
+  function lista(titulo, items, vacio) {
+    if (!items.length) return vacio ? `<div class="mov"><h3>${titulo}</h3><div class="fila-vacia">${vacio}</div></div>` : '';
     return `<div class="mov"><h3>${titulo}</h3>${items.map(i =>
       `<div class="fila" title="${esc(i.nombre)}"><b>${esc(i.simbolo)}</b><span class="${clase(i.variacion)}">${pct(i.variacion)}</span></div>`).join('')}</div>`;
   }
@@ -402,7 +405,10 @@
     document.getElementById('titulo-seccion').textContent = TITULOS[region];
     document.getElementById('precios').innerHTML = d.precios.map(precio).join('');
     document.getElementById('precios').scrollLeft = 0;
-    document.getElementById('movs').innerHTML = lista('Más suben', d.suben) + lista('Más bajan', d.bajan);
+    const hayAlguna = d.suben.length || d.bajan.length;
+    document.getElementById('movs').innerHTML = !hayAlguna ? '' :
+      lista('Más suben', d.suben, 'Ninguna subió') + lista('Más bajan', d.bajan, 'Ninguna bajó') +
+      (d.cierre ? `<div class="cierre">${esc(d.cierre)}</div>` : '');
     document.getElementById('noticias').innerHTML = d.noticias.length
       ? d.noticias.map(nota).join('')
       : '<div class="estado">Todavía no hay noticias importantes hoy. Volvé en un rato.</div>';
