@@ -430,14 +430,24 @@
      está en el medio de otra cosa. Si lo cierra, no vuelve nunca más: no
      tiene que sentirse una publicidad. El guardado va envuelto porque hay
      navegadores que no lo permiten (incógnito) y ahí cortaría el script. */
-  const COLAB_KEY = 'mad_colab_cerrado';
-  const colabYaCerrado = () => { try { return localStorage.getItem(COLAB_KEY) === '1'; } catch (_) { return false; } };
+  /* Dos memorias distintas:
+     - mad_colab_listo: ya colaboró. No se le muestra nunca más.
+     - mad_colab_dia: el día en que se le mostró por última vez. Como mucho
+       una vez por día: si lo cerró sin colaborar, vuelve recién mañana. */
+  const COLAB_LISTO = 'mad_colab_listo';
+  const COLAB_DIA   = 'mad_colab_dia';
+  const colabHoy = () => { const d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); };
+  const colabLeer = (k) => { try { return localStorage.getItem(k); } catch (_) { return null; } };
+  const colabGuardar = (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} };
+  const colabYaCerrado = () => colabLeer(COLAB_LISTO) === '1' || colabLeer(COLAB_DIA) === colabHoy();
 
   function cerrarColaborar() {
     const f = document.getElementById('colab-fondo');
     if (f) f.classList.remove('open');
-    try { localStorage.setItem(COLAB_KEY, '1'); } catch (_) {}
   }
+
+  /* Tocó Colaborar: no se le muestra nunca más */
+  function colaborarListo() { colabGuardar(COLAB_LISTO, '1'); cerrarColaborar(); }
 
   function mostrarColaborar() {
     const f = document.getElementById('colab-fondo');
@@ -447,6 +457,7 @@
                     document.querySelector('dialog[open], .modal.open, .abierto');
     if (ocupada) { setTimeout(mostrarColaborar, 30000); return; }
     f.classList.add('open');
+    colabGuardar(COLAB_DIA, colabHoy());
   }
 
   if (LINK_DONAR !== '#' && !colabYaCerrado()) {
@@ -454,7 +465,7 @@
     if (f) {
       document.getElementById('colab-cerrar').addEventListener('click', cerrarColaborar);
       f.addEventListener('click', e => { if (e.target === f) cerrarColaborar(); });  // tocar afuera
-      f.querySelector('.colab-btn').addEventListener('click', cerrarColaborar);      // ya colaboró
+      f.querySelector('.colab-btn').addEventListener('click', colaborarListo);      // ya colaboró: no vuelve nunca más
       setTimeout(mostrarColaborar, 60000);
     }
   }
