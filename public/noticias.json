@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-26T23:40:04.371Z",
+  "actualizado": "2026-10-27T00:05:45.579Z",
   "secciones": {
     "eeuu": {
       "precios": [
@@ -105,6 +105,7 @@
         }
       ],
       "cierre": "",
+      "sectores": [],
       "noticias": [
         {
           "titulo": "Por qué Goldman Sachs espera que la Fed omita la subida de tipos de octubre",
@@ -194,35 +195,6 @@
           "fijada": false
         },
         {
-          "titulo": "La IPO de Anthropic podría generar un enorme efecto de goteo",
-          "resumen": "La salida a bolsa de Anthropic se vuelve crucial mientras el comercio de IA se debilita y suben las tasas.",
-          "link": "https://www.cnbc.com/2026/10/26/anthropic-ipo-might-trigger-tech-reset-if-ipo-underperforms.html",
-          "fuente": "CNBC",
-          "imagen": "https://image.cnbcfm.com/api/v1/image/108181967-1758834890156-GettyImages-2194795244.jpg?v=1793028030&w=1920&h=1080",
-          "fecha": "2026-10-26T22:50:07.000Z",
-          "tag": "Índices",
-          "nivel": 1,
-          "medios": 1,
-          "puntaje": 60,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 8,
-            "gigante": 0,
-            "frescura": 8,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 55,
-          "porQue": "IPO de Anthropic podría impulsar el sector IA y generar flujo de capital",
-          "activos": "acciones IA, tech US",
-          "estado": "anuncio",
-          "fijada": false
-        },
-        {
           "titulo": "Meta, SpaceX y Anthropic avivan el frenesí de financiación de la IA. Qué significa para nuestras acciones",
           "resumen": "Meta, SpaceX y Anthropic intensifican la financiación de IA, con posibles repercusiones en acciones tecnológicas.",
           "link": "https://www.cnbc.com/investingclub/2026/10/26/meta-spacex-anthropic-stoke-the-ai-funding-frenzy-what-it-means-for-our-stocks.html",
@@ -261,12 +233,12 @@
           "tag": "Geopolítica",
           "nivel": 1,
           "medios": 1,
-          "puntaje": 53,
+          "puntaje": 52,
           "detalle": {
             "tema": 40,
             "cobertura": 8,
             "gigante": 0,
-            "frescura": 8,
+            "frescura": 7,
             "soloArgentinos": 8,
             "bolsa": 0,
             "elecciones": 0,
@@ -336,6 +308,35 @@
           "porQue": "Cambio de estrategia de una gestora relevante que rota de IA a salud e infraestructura, señal de rotación sectorial.",
           "activos": "acciones de salud, infraestructura, renta fija EE.UU.",
           "estado": "analisis",
+          "fijada": false
+        },
+        {
+          "titulo": "La Reserva Federal probablemente mantendrá las tasas de interés estables en octubre",
+          "resumen": "Se espera que la Reserva Federal mantenga su tipo de interés a un día sin cambios al concluir su reunión de octubre.",
+          "link": "https://www.cnbc.com/2026/10/26/fed-decision-expectations-october-meeting.html",
+          "fuente": "CNBC",
+          "imagen": "https://image.cnbcfm.com/api/v1/image/108364336-1789647696167-US_Federal_Reserve_Chair_Kevin_Warsh_Holds_Press_C-2295666687-Getty.jpg?v=1789647704&w=1920&h=1080",
+          "fecha": "2026-10-26T18:51:23.000Z",
+          "tag": "Tasas",
+          "nivel": 1,
+          "medios": 3,
+          "puntaje": 55,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 16,
+            "gigante": 0,
+            "frescura": 6,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 40,
+          "porQue": "Confirma la expectativa de mercado de que la Fed mantendrá tasas, lo cual es un dato esperado y no genera sorpresa.",
+          "activos": "Tasas de interés, bonos del Tesoro",
+          "estado": "estimacion",
           "fijada": false
         }
       ]
@@ -416,6 +417,7 @@
         }
       ],
       "cierre": "",
+      "sectores": [],
       "noticias": [
         {
           "titulo": "Efecto Brasil: las acciones argentinas se desploman hasta 11% en Wall Street y suben el dólar y el riesgo país",
@@ -505,12 +507,41 @@
           "fijada": false
         },
         {
+          "titulo": "Desacoplados: ni los US$ 15.800 millones comprados por el BCRA reviven a los bonos y las acciones argentinas",
+          "resumen": "Los bonos y acciones argentinas caen pese a la compra de dólares por el BCRA, con el riesgo país subiendo más de 300 puntos.",
+          "link": "https://eleconomista.com.ar/finanzas/desacoplados-ni-us-15800-millones-comprados-bcra-reviven-bonos-acciones-argentinas-n99194",
+          "fuente": "El Economista",
+          "imagen": "https://statics.eleconomista.com.ar/2026/07/6a5a1bde4500e.jpg",
+          "fecha": "2026-10-26T11:54:00.000Z",
+          "tag": "BCRA",
+          "nivel": 1,
+          "medios": 3,
+          "puntaje": 59,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 16,
+            "gigante": 0,
+            "frescura": 4,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 50,
+          "porQue": "Analiza la desconexión entre la compra de divisas del BCRA y la performance de los activos, señalando incertidumbre sobre el régimen monetario.",
+          "activos": "Bonos argentinos, acciones argentinas, riesgo país",
+          "estado": "analisis",
+          "fijada": false
+        },
+        {
           "titulo": "El dólar contado con liquidación llegó a $1.682: en RDEco analizaron las señales de alerta del mercado",
           "resumen": "Economistas analizan caída del Merval y suba del CCL tras elecciones en Brasil, señalando alerta en el mercado argentino.",
           "link": "https://www.perfil.com/noticias/masperfil/dolar-riesgo-pais-y-bonos-argentinos-que-impacto-tuvo-la-eleccion-en-brasil-sobre-los-mercados.phtml",
           "fuente": "Perfil",
           "imagen": "https://fotos.perfil.com/2026/10/26/trim/540/304/riesgo-pais-2357011.jpg",
-          "fecha": "2026-10-26T22:59:30.000Z",
+          "fecha": "2026-10-26T23:08:45.000Z",
           "tag": "Dólar",
           "nivel": 2,
           "medios": 1,
@@ -619,35 +650,6 @@
           "activos": "PBI, bonos soberanos, acciones argentinas",
           "estado": "estimacion",
           "fijada": false
-        },
-        {
-          "titulo": "YPF, plazos fijo UVA y bonos CER, las inversiones ganadoras",
-          "resumen": "YPF, plazos fijos UVA y bonos CER superaron la inflación acumulada, destacándose como inversiones ganadoras frente al rojo bursátil.",
-          "link": "https://www.perfil.com/noticias/economia/ypf-plazos-fijo-uva-y-bonos-cer-las-inversiones-ganadoras.phtml",
-          "fuente": "Perfil",
-          "imagen": "https://fotos.perfil.com/2026/10/25/trim/540/304/251026finnazasmercadosnag-2355831.jpg",
-          "fecha": "2026-10-25T04:49:58.000Z",
-          "tag": "Bonos",
-          "nivel": 1,
-          "medios": 1,
-          "puntaje": 65,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 8,
-            "gigante": 6,
-            "frescura": 0,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 12,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 55,
-          "porQue": "Identifica activos que superaron la inflación, útil para la asignación de cartera en un contexto de alta inflación.",
-          "activos": "YPF, bonos CER, plazos fijos UVA",
-          "estado": "analisis",
-          "fijada": false
         }
       ]
     },
@@ -655,26 +657,26 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4027.4,
-          "variacion": -0.272,
+          "precio": 4018.3,
+          "variacion": -0.498,
           "unidad": "US$"
         },
         {
           "nombre": "Brent",
-          "precio": 110.28,
-          "variacion": -0.415,
+          "precio": 110.48,
+          "variacion": -0.235,
           "unidad": "US$"
         },
         {
           "nombre": "Bitcoin",
-          "precio": 80010.27,
-          "variacion": -0.054,
+          "precio": 80036.52,
+          "variacion": -0.029,
           "unidad": "US$"
         },
         {
           "nombre": "Plata",
-          "precio": 54.03,
-          "variacion": -0.572,
+          "precio": 53.965,
+          "variacion": -0.692,
           "unidad": "US$"
         },
         {
@@ -687,6 +689,62 @@
       "suben": [],
       "bajan": [],
       "cierre": "",
+      "sectores": [
+        {
+          "simbolo": "XLK",
+          "nombre": "Tecnología",
+          "precio": 186.32,
+          "variacion": 1.686
+        },
+        {
+          "simbolo": "XLF",
+          "nombre": "Finanzas",
+          "precio": 56.02,
+          "variacion": 0.215
+        },
+        {
+          "simbolo": "XLE",
+          "nombre": "Energía",
+          "precio": 69.64,
+          "variacion": 0.447
+        },
+        {
+          "simbolo": "XLV",
+          "nombre": "Salud",
+          "precio": 179.28,
+          "variacion": 0
+        },
+        {
+          "simbolo": "XLI",
+          "nombre": "Industria",
+          "precio": 166.96,
+          "variacion": 1.421
+        },
+        {
+          "simbolo": "XLB",
+          "nombre": "Materiales",
+          "precio": 51.38,
+          "variacion": 0.136
+        },
+        {
+          "simbolo": "XLY",
+          "nombre": "Consumo discrecional",
+          "precio": 114.26,
+          "variacion": 1.026
+        },
+        {
+          "simbolo": "XLP",
+          "nombre": "Consumo básico",
+          "precio": 87.96,
+          "variacion": -0.34
+        },
+        {
+          "simbolo": "XLC",
+          "nombre": "Comunicación",
+          "precio": 103.85,
+          "variacion": -1.573
+        }
+      ],
       "noticias": [
         {
           "titulo": "Dólar hoy en Brasil se disparó tras victoria de Lula y el real fue la moneda que más cayó en el mundo",
@@ -726,13 +784,13 @@
           "fecha": "2026-10-26T19:23:00.000Z",
           "tag": "Elecciones",
           "nivel": 1,
-          "medios": 8,
-          "puntaje": 78,
+          "medios": 7,
+          "puntaje": 77,
           "detalle": {
             "tema": 40,
-            "cobertura": 25,
+            "cobertura": 24,
             "gigante": 0,
-            "frescura": 7,
+            "frescura": 6,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 10,
@@ -747,21 +805,21 @@
           "fijada": false
         },
         {
-          "titulo": "Se frenó la venta masiva de bonos de Francia tras lograr que Moody's no rebaje su calificación crediticia",
-          "resumen": "Moody's mantuvo la calificación de Francia en Aa3, frenando la venta masiva de bonos y brindando respiro al gobierno francés.",
-          "link": "https://www.ambito.com/finanzas/se-freno-la-venta-masiva-bonos-francia-lograr-que-moodys-no-rebaje-su-calificacion-crediticia-n6337885",
-          "fuente": "Ámbito",
-          "imagen": "https://media.ambito.com/p/c8fe884a1bbb8d08e5f353c7691b45c9/adjuntos/239/imagenes/043/728/0043728156/1200x675/872x352:892x372/francia-mercados.jpg",
-          "fecha": "2026-10-26T17:14:34.000Z",
-          "tag": "Bonos",
+          "titulo": "Las reservas estratégicas de petróleo de EE.UU. caen a mínimos desde 1982",
+          "resumen": "Las reservas estratégicas de petróleo de EE.UU. cayeron a niveles mínimos no vistos desde 1982.",
+          "link": "https://es.investing.com/news/commodities-news/las-reservas-estrategicas-de-petroleo-de-eeuu-caen-a-minimos-desde-1982-93CH-3890862",
+          "fuente": "Investing",
+          "imagen": "https://content-media.investing.com/news/moved_LYNXNPEKB40PZ_L.jpg",
+          "fecha": "2026-10-26T23:23:11.000Z",
+          "tag": "BCRA",
           "nivel": 1,
           "medios": 3,
-          "puntaje": 70,
+          "puntaje": 69,
           "detalle": {
             "tema": 40,
             "cobertura": 16,
             "gigante": 0,
-            "frescura": 6,
+            "frescura": 8,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 0,
@@ -769,9 +827,9 @@
             "noInversion": 0,
             "sinTema": 0
           },
-          "ia": 70,
-          "porQue": "Mantenimiento de la calificación crediticia de Francia evita una crisis de deuda soberana en la eurozona, estabilizando los bonos europeos.",
-          "activos": "bonos franceses, bonos europeos, euro",
+          "ia": 65,
+          "porQue": "Señal de tensión en el suministro global de crudo que puede presionar al alza los precios del petróleo.",
+          "activos": "petróleo WTI, petróleo Brent, acciones energéticas",
           "estado": "hecho",
           "fijada": false
         },
@@ -790,7 +848,7 @@
             "tema": 40,
             "cobertura": 13,
             "gigante": 0,
-            "frescura": 8,
+            "frescura": 7,
             "soloArgentinos": 0,
             "bolsa": 0,
             "elecciones": 0,
@@ -801,64 +859,6 @@
           "ia": 75,
           "porQue": "Escalada del conflicto aumenta aversión al riesgo y puede impactar precios de energía y mercados emergentes.",
           "activos": "mercados de riesgo, energía",
-          "estado": "hecho",
-          "fijada": false
-        },
-        {
-          "titulo": "Las reservas estratégicas de petróleo de EE.UU. caen a mínimos desde 1982",
-          "resumen": "Las reservas estratégicas de petróleo de EE.UU. cayeron a niveles mínimos no vistos desde 1982.",
-          "link": "https://es.investing.com/news/commodities-news/las-reservas-estrategicas-de-petroleo-de-eeuu-caen-a-minimos-desde-1982-93CH-3890862",
-          "fuente": "Investing",
-          "imagen": "https://content-media.investing.com/news/moved_LYNXNPEKB40PZ_L.jpg",
-          "fecha": "2026-10-26T23:23:11.000Z",
-          "tag": "BCRA",
-          "nivel": 1,
-          "medios": 2,
-          "puntaje": 67,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 13,
-            "gigante": 0,
-            "frescura": 8,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 65,
-          "porQue": "Señal de tensión en el suministro global de crudo que puede presionar al alza los precios del petróleo.",
-          "activos": "petróleo WTI, petróleo Brent, acciones energéticas",
-          "estado": "hecho",
-          "fijada": false
-        },
-        {
-          "titulo": "El bitcoin toca mínimos por debajo de 80.000 dólares",
-          "resumen": "El bitcoin toca mínimos por debajo de los 80.000 dólares, marcando su nivel más bajo en más de un mes.",
-          "link": "https://www.expansion.com/mercados/criptomonedas/2026/10/26/6adf3f71468aeb200e8b4587.html",
-          "fuente": "Expansión",
-          "imagen": "https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2026/03/05/17727124214223.jpg",
-          "fecha": "2026-10-26T12:48:34.000Z",
-          "tag": "Cripto",
-          "nivel": 1,
-          "medios": 3,
-          "puntaje": 67,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 16,
-            "gigante": 0,
-            "frescura": 4,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 65,
-          "porQue": "Ruptura de soporte técnico clave en bitcoin que puede desencadenar ventas adicionales y afectar la aversión al riesgo en criptoactivos.",
-          "activos": "bitcoin, criptomonedas",
           "estado": "hecho",
           "fijada": false
         },
@@ -877,7 +877,7 @@
             "tema": 40,
             "cobertura": 13,
             "gigante": 0,
-            "frescura": 4,
+            "frescura": 3,
             "soloArgentinos": 0,
             "bolsa": 8,
             "elecciones": 0,
@@ -889,35 +889,6 @@
           "porQue": "Una suba de tasas en Canadá afecta tasas globales, liquidez y activos de riesgo en un contexto de shock petrolero.",
           "activos": "bonos canadienses, dólar canadiense, petróleo",
           "estado": "estimacion",
-          "fijada": false
-        },
-        {
-          "titulo": "Semana clave para los bancos centrales: la Fed, el BCE y el BoJ deciden sobre sus tasas",
-          "resumen": "La Fed, el BCE y el Banco de Japón decidirán sobre sus tasas esta semana, en un contexto de inflación global impulsada por el petróleo.",
-          "link": "https://www.ambito.com/economia/semana-clave-los-bancos-centrales-la-fed-el-bce-y-el-boj-deciden-sus-tasas-n6337997",
-          "fuente": "Ámbito",
-          "imagen": "https://media.ambito.com/p/2baceee8243e5a20148f2bdf3d1a791f/adjuntos/239/imagenes/043/728/0043728411/1200x675/smart/fed-bce-boj.jpg",
-          "fecha": "2026-10-26T17:51:00.000Z",
-          "tag": "Tasas",
-          "nivel": 1,
-          "medios": 6,
-          "puntaje": 66,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 22,
-            "gigante": 0,
-            "frescura": 6,
-            "soloArgentinos": 0,
-            "bolsa": 8,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 55,
-          "porQue": "Las decisiones de la Fed, BCE y BoJ son eventos macroeconómicos clave que impactan las tasas globales y la liquidez, aunque el texto es genérico.",
-          "activos": "Tasas globales, bonos, divisas",
-          "estado": "analisis",
           "fijada": false
         },
         {
@@ -935,7 +906,7 @@
             "tema": 40,
             "cobertura": 13,
             "gigante": 0,
-            "frescura": 7,
+            "frescura": 6,
             "soloArgentinos": 0,
             "bolsa": 0,
             "elecciones": 0,
@@ -946,6 +917,64 @@
           "ia": 72,
           "porQue": "escalada del conflicto en Ucrania eleva la aversión al riesgo y presiona al alza los precios del petróleo",
           "activos": "petróleo, mercados emergentes, riesgo país",
+          "estado": "hecho",
+          "fijada": false
+        },
+        {
+          "titulo": "Semana clave para los bancos centrales: la Fed, el BCE y el BoJ deciden sobre sus tasas",
+          "resumen": "La Fed, el BCE y el Banco de Japón decidirán sobre sus tasas esta semana, en un contexto de inflación global impulsada por el petróleo.",
+          "link": "https://www.ambito.com/economia/semana-clave-los-bancos-centrales-la-fed-el-bce-y-el-boj-deciden-sus-tasas-n6337997",
+          "fuente": "Ámbito",
+          "imagen": "https://media.ambito.com/p/2baceee8243e5a20148f2bdf3d1a791f/adjuntos/239/imagenes/043/728/0043728411/1200x675/smart/fed-bce-boj.jpg",
+          "fecha": "2026-10-26T17:51:00.000Z",
+          "tag": "Tasas",
+          "nivel": 1,
+          "medios": 5,
+          "puntaje": 65,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 21,
+            "gigante": 0,
+            "frescura": 6,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 55,
+          "porQue": "Las decisiones de la Fed, BCE y BoJ son eventos macroeconómicos clave que impactan las tasas globales y la liquidez, aunque el texto es genérico.",
+          "activos": "Tasas globales, bonos, divisas",
+          "estado": "analisis",
+          "fijada": false
+        },
+        {
+          "titulo": "El bitcoin toca mínimos por debajo de 80.000 dólares",
+          "resumen": "El bitcoin toca mínimos por debajo de los 80.000 dólares, marcando su nivel más bajo en más de un mes.",
+          "link": "https://www.expansion.com/mercados/criptomonedas/2026/10/26/6adf3f71468aeb200e8b4587.html",
+          "fuente": "Expansión",
+          "imagen": "https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2026/03/05/17727124214223.jpg",
+          "fecha": "2026-10-26T12:48:34.000Z",
+          "tag": "Cripto",
+          "nivel": 1,
+          "medios": 2,
+          "puntaje": 65,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 13,
+            "gigante": 0,
+            "frescura": 4,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 65,
+          "porQue": "Ruptura de soporte técnico clave en bitcoin que puede desencadenar ventas adicionales y afectar la aversión al riesgo en criptoactivos.",
+          "activos": "bitcoin, criptomonedas",
           "estado": "hecho",
           "fijada": false
         },
@@ -976,6 +1005,35 @@
           "porQue": "Corrección técnica en futuros de petróleo Brent tras alcanzar máximos, señal de volatilidad en commodities.",
           "activos": "Petróleo Brent, futuros de energía",
           "estado": "analisis",
+          "fijada": false
+        },
+        {
+          "titulo": "El PIB de Corea del Sur crece más de lo esperado en el 3T por la IA",
+          "resumen": "El PIB de Corea del Sur creció más de lo esperado en el tercer trimestre, impulsado por la inteligencia artificial.",
+          "link": "https://es.investing.com/news/economic-indicators/el-pib-de-corea-del-sur-crece-mas-de-lo-esperado-en-el-3t-por-la-ia-3891214",
+          "fuente": "Investing",
+          "imagen": "https://content-media.investing.com/news/general-use-news-image3_M_1440049476.jpg",
+          "fecha": "2026-10-27T02:33:06.000Z",
+          "tag": "Economía",
+          "nivel": 1,
+          "medios": 1,
+          "puntaje": 60,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 8,
+            "gigante": 0,
+            "frescura": 9,
+            "soloArgentinos": 0,
+            "bolsa": 0,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 63,
+          "porQue": "crecimiento del PIB surcoreano supera expectativas, impulsado por IA, puede elevar acciones locales y sector tecnológico",
+          "activos": "acciones coreanas, sector tecnológico",
+          "estado": "dato_oficial",
           "fijada": false
         }
       ]

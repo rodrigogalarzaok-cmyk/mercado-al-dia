@@ -138,6 +138,14 @@
   /* ── Suben / bajan ── */
   .movs:empty { display: none; }
   .movs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 22px; }
+  /* ETF de sectores (al final de Mundo): mismo formato que "Más suben / Más bajan". */
+  .movs .sect-titulo { grid-column: 1 / -1; text-align: center; font-size: 12px; font-weight: 600; color: var(--sobre-fondo); text-transform: uppercase; letter-spacing: .04em; }
+  .fila.etf { align-items: center; padding: 4px 0; }
+  .fila.etf + .fila.etf { border-top: 1px solid var(--line); }
+  .fila.etf b { white-space: normal; }
+  .fila.etf b small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); }
+  .fila.etf span { text-align: right; }
+  .fila.etf span small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); }
   .fila-vacia { text-align: center; font-size: 13px; color: var(--muted); padding: 6px 0; }
   .movs .cierre { grid-column: 1 / -1; text-align: center; font-size: 12px; color: var(--sobre-fondo); }
   .mov { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
@@ -363,6 +371,15 @@
     return `<div class="precio"><div class="n">${esc(p.nombre)}</div><div class="v">${valor}</div><div class="c ${p.sub ? 'sub' : cambioClase(p)}">${p.sub ? esc(p.sub) : cambio(p) || '&nbsp;'}</div></div>`;
   }
 
+  // ETF de sectores de EE.UU.: repartidos en dos recuadros enfrentados (el primero con uno más).
+  function sectoresHtml(lista, cierre) {
+    const fila = e => `<div class="fila etf"><b>${esc(e.simbolo)}<small>${esc(e.nombre)}</small></b><span class="${clase(e.variacion)}">${pct(e.variacion)}<small>${num(e.precio)}</small></span></div>`;
+    const mitad = Math.ceil(lista.length / 2);
+    return `<div class="sect-titulo">Sectores de EE.UU. (ETF)</div>` +
+      [lista.slice(0, mitad), lista.slice(mitad)].map(parte => `<div class="mov">${parte.map(fila).join('')}</div>`).join('') +
+      (cierre ? `<div class="cierre">${esc(cierre)}</div>` : '');
+  }
+
   // Si una de las dos listas está vacía (ej. el viernes subieron todas), se avisa en vez de dejar un hueco.
   function lista(titulo, items, vacio) {
     if (!items.length) return vacio ? `<div class="mov"><h3>${titulo}</h3><div class="fila-vacia">${vacio}</div></div>` : '';
@@ -406,7 +423,8 @@
     document.getElementById('precios').innerHTML = d.precios.map(precio).join('');
     document.getElementById('precios').scrollLeft = 0;
     const hayAlguna = d.suben.length || d.bajan.length;
-    document.getElementById('movs').innerHTML = !hayAlguna ? '' :
+    const sect = d.sectores || [];
+    document.getElementById('movs').innerHTML = sect.length ? sectoresHtml(sect, d.cierre) : !hayAlguna ? '' :
       lista('Más suben', d.suben, 'Ninguna subió') + lista('Más bajan', d.bajan, 'Ninguna bajó') +
       (d.cierre ? `<div class="cierre">${esc(d.cierre)}</div>` : '');
     document.getElementById('noticias').innerHTML = d.noticias.length

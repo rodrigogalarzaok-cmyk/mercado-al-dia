@@ -761,10 +761,41 @@ async function movimientosArg() {
   } catch (e) { console.warn('No respondió el panel líder de BYMA', e.message); return deRespaldo(); }
 }
 
+// ETF de sectores de EE.UU. (Marc, 2026-10-26): van al final de la pestaña Mundo, en el lugar donde
+// EE.UU. y Argentina tienen "Más suben / Más bajan". Precio y variación del día de Yahoo; con el mercado
+// cerrado queda la última cotización y la página avisa de qué día es ("Cierre del viernes 23/10").
+const SECTORES = [
+  ['XLK', 'Tecnología'], ['XLF', 'Finanzas'], ['XLE', 'Energía'], ['XLV', 'Salud'], ['XLI', 'Industria'],
+  ['XLB', 'Materiales'], ['XLY', 'Consumo discrecional'], ['XLP', 'Consumo básico'], ['XLC', 'Comunicación'],
+];
+async function sectores() {
+  const res = await Promise.allSettled(SECTORES.map(async ([simbolo, nombre]) => {
+    const d = await traer(`https://query1.finance.yahoo.com/v8/finance/chart/${simbolo}?range=1d&interval=1d`, { json: true });
+    const m = d.chart.result[0].meta;
+    const variacion = m.regularMarketChangePercent ?? (m.regularMarketPrice / m.chartPreviousClose - 1) * 100;
+    return { simbolo, nombre, precio: m.regularMarketPrice, variacion, hora: m.regularMarketTime };
+  }));
+  const lista = res.filter(r => r.status === 'fulfilled' && Number.isFinite(r.value.variacion)).map(r => r.value);
+  if (res.some(r => r.status === 'rejected')) console.warn('No respondieron algunos ETF de sectores');
+  if (!lista.length) return [[], ''];
+  // De qué día es la cotización: si no es de hoy (fin de semana, feriado), se avisa.
+  const enNY = t => new Date(t * 1000).toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+  const ultima = Math.max(...lista.map(x => x.hora));
+  const hoyNY = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+  let cierre = '';
+  if (enNY(ultima) !== hoyNY) {
+    const f = new Date(ultima * 1000);
+    const dia = f.toLocaleDateString('es-AR', { weekday: 'long', timeZone: 'America/New_York' });
+    const [, mes, d] = enNY(ultima).split('-');
+    cierre = `Cierre del ${dia} ${+d}/${+mes}`;
+  }
+  return [lista.map(({ hora, ...x }) => x), cierre];
+}
+
 // ───────────────────────── Armar todo ─────────────────────────
 
-const [noticiasTodas, listaPrecios, [suben, bajan], [subenArg, bajanArg, cierreArg], agenda] = await Promise.all([
-  juntarNoticias(), precios(), movimientos(), movimientosArg(), calendario().catch(e => { console.warn('No se pudo armar el calendario', e.message); return []; }),
+const [noticiasTodas, listaPrecios, [suben, bajan], [subenArg, bajanArg, cierreArg], [listaSectores, cierreSectores], agenda] = await Promise.all([
+  juntarNoticias(), precios(), movimientos(), movimientosArg(), sectores().catch(() => [[], '']), calendario().catch(e => { console.warn('No se pudo armar el calendario', e.message); return []; }),
 ]);
 // Para revisar el puntaje de todas las notas (no solo las elegidas): VOLCAR=1 node armar.mjs
 if (process.env.VOLCAR) await writeFile(new URL("./todas-las-notas.json", import.meta.url), JSON.stringify(noticiasTodas.map(({ pal, ...n }) => n).sort((a, b) => b.puntaje - a.puntaje), null, 1));
@@ -854,7 +885,8 @@ for (const r of PESTAÑAS) {
     precios: listaPrecios.filter(p => p.region === r).sort((a, b) => lugar(r, a) - lugar(r, b)).map(({ region, ...p }) => p),
     suben: r === 'eeuu' ? suben : r === 'argentina' ? subenArg : [],
     bajan: r === 'eeuu' ? bajan : r === 'argentina' ? bajanArg : [],
-    cierre: r === 'argentina' ? cierreArg : '',   // "Cierre del viernes 23/10" cuando no es de hoy
+    cierre: r === 'argentina' ? cierreArg : r === 'mundo' ? cierreSectores : '',   // "Cierre del viernes 23/10" cuando no es de hoy
+    sectores: r === 'mundo' ? listaSectores : [],
     noticias: noticias.map(({ pal, region, resumenOriginal, tituloOriginal, debajoDelCorte, horas, ...n }) => n),
   };
 }
