@@ -768,12 +768,30 @@ const SECTORES = [
   ['XLK', 'Tecnología'], ['XLF', 'Finanzas'], ['XLE', 'Energía'], ['XLV', 'Salud'], ['XLI', 'Industria'],
   ['XLB', 'Materiales'], ['XLY', 'Consumo discrecional'], ['XLP', 'Consumo básico'], ['XLC', 'Comunicación'],
 ];
+// Historial para el gráfico que se abre al tocar un ETF: [día (días desde 1970), cierre].
+// 1 año diario (sirve para 1M, 6M y 1A) y 5 años semanal (5A). El último punto es el precio de ahora.
+async function historial(simbolo, rango, intervalo, precioAhora, horaAhora) {
+  try {
+    const d = await traer(`https://query1.finance.yahoo.com/v8/finance/chart/${simbolo}?range=${rango}&interval=${intervalo}`, { json: true });
+    const x = d.chart.result[0], cierres = x.indicators.quote[0].close;
+    const puntos = x.timestamp.map((t, i) => [Math.floor(t / 86400), cierres[i]]).filter(([, c]) => c != null).map(([t, c]) => [t, +c.toFixed(2)]);
+    const hoy = Math.floor(horaAhora / 86400);
+    if (puntos.length && puntos.at(-1)[0] < hoy) puntos.push([hoy, +precioAhora.toFixed(2)]);
+    else if (puntos.length) puntos[puntos.length - 1][1] = +precioAhora.toFixed(2);
+    return puntos;
+  } catch { return []; }
+}
+
 async function sectores() {
   const res = await Promise.allSettled(SECTORES.map(async ([simbolo, nombre]) => {
     const d = await traer(`https://query1.finance.yahoo.com/v8/finance/chart/${simbolo}?range=1d&interval=1d`, { json: true });
     const m = d.chart.result[0].meta;
     const variacion = m.regularMarketChangePercent ?? (m.regularMarketPrice / m.chartPreviousClose - 1) * 100;
-    return { simbolo, nombre, precio: m.regularMarketPrice, variacion, hora: m.regularMarketTime };
+    const [diario, semanal] = await Promise.all([
+      historial(simbolo, '1y', '1d', m.regularMarketPrice, m.regularMarketTime),
+      historial(simbolo, '5y', '1wk', m.regularMarketPrice, m.regularMarketTime),
+    ]);
+    return { simbolo, nombre, precio: m.regularMarketPrice, variacion, hora: m.regularMarketTime, diario, semanal };
   }));
   const lista = res.filter(r => r.status === 'fulfilled' && Number.isFinite(r.value.variacion)).map(r => r.value);
   if (res.some(r => r.status === 'rejected')) console.warn('No respondieron algunos ETF de sectores');
@@ -899,7 +917,7 @@ await writeFile(new URL('./public/noticias.json', import.meta.url), JSON.stringi
   fuentes: {
     medios: [...new Set(DIARIOS.map(d => d.fuente))].map(nombre => ({ nombre, pais: MEDIOS[nombre]?.[0] || '', web: MEDIOS[nombre]?.[1] || '' })),
   },
-}, null, 2));
+}));   // sin espacios: lo lee el celular (con los gráficos de los ETF, ordenado pesaba 4 veces más)
 
 for (const r of PESTAÑAS) {
   console.log(`\n── ${r.toUpperCase()}: ${secciones[r].noticias.length} noticias, ${secciones[r].precios.length} precios`);
