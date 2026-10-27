@@ -260,7 +260,43 @@
   footer { max-width: 720px; margin: 0 auto; padding: 0 16px 40px; color: var(--sobre-fondo); font-size: 12px; text-align: center; }
   main > .titulo-seccion { color: var(--sobre-fondo); }
   /* El Donar del pie va en el mismo azul que los cuadraditos de precios. */
-  footer .donar { display: inline-block; margin: 0 0 14px; background: #16305a; border: 1px solid #22416f; color: #fff; }
+  footer .donar {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    margin: 0 0 8px; background: #16305a; border: 1px solid #22416f; color: #fff;
+  }
+  footer .donar svg { width: 16px; height: 16px; flex-shrink: 0; }
+  /* En blanco: sobre el azul oscuro, el gris del pie no se lee */
+  .colabora-txt { margin: 0 0 16px; font-size: 12px; line-height: 1.5; color: #fff; }
+
+  /* ── Cartel para colaborar: sale al minuto, una sola vez ── */
+  .colab-fondo {
+    position: fixed; inset: 0; z-index: 900;
+    background: rgba(3,8,18,.74);
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .colab-fondo.open { display: flex; }
+  .colab-card {
+    position: relative; width: 100%; max-width: 330px; text-align: center;
+    background: #0d1b33; border: 1px solid #22416f;
+    border-radius: 18px; padding: 26px 22px 22px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.5);
+  }
+  .colab-x {
+    position: absolute; top: 9px; right: 9px; width: 30px; height: 30px;
+    border-radius: 50%; background: rgba(255,255,255,.08); border: none;
+    color: rgba(255,255,255,.65); font-size: 19px; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .colab-x:hover { background: rgba(255,255,255,.16); color: #fff; }
+  .colab-card .tacita { width: 30px; height: 30px; color: var(--accent); margin-bottom: 10px; }
+  .colab-txt { font-size: 14px; line-height: 1.55; color: #fff; margin: 0 0 18px; }
+  .colab-txt b { color: var(--accent); }
+  .colab-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 13px 18px; background: var(--accent); color: #fff;
+    border-radius: 12px; font-size: 14.5px; font-weight: 700; text-decoration: none;
+  }
+  .colab-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
 
   /* ── Redes de Marc (igual que en Tasita: logo + @usuario, sin recuadro) ── */
   .redes { display: flex; justify-content: center; align-items: center; gap: 18px; margin: 0 0 16px; }
@@ -280,8 +316,8 @@
       <button class="hamburguesa" id="abrir-menu" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu-lista"><span></span><span></span><span></span></button>
       <div class="menu-lista" id="menu-lista" hidden>
         <a class="menu-item" data-donar href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
-          Donar
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M12 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M3 10h14v5a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-5"/><path d="M16.7 16.7a3 3 0 1 0 .3-5.5"/></svg>
+          Colaborar
         </a>
         <button class="menu-item" id="abrir-cal" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1" fill="currentColor"/><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="16" cy="15" r="1" fill="currentColor"/></svg>
@@ -340,7 +376,11 @@
 </div>
 
 <footer>
-  <a class="donar" data-donar href="#" target="_blank" rel="noopener">Donar</a>
+  <a class="donar" data-donar href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M12 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M3 10h14v5a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-5"/><path d="M16.7 16.7a3 3 0 1 0 .3-5.5"/></svg>
+    Colaborar
+  </a>
+  <p class="colabora-txt" data-donar-txt>Mercado al Día es gratis siempre. Si te ayudó, podés colaborar a que siga funcionando.</p>
   <!-- Redes de Marc: mismos logos y formato que en Tasita. -->
   <div class="redes">
     <a class="red ig" href="https://www.instagram.com/rodrigogalarza__/" target="_blank" rel="noopener">
@@ -363,14 +403,61 @@
       @rodrigogalarzaa
     </a>
   </div>
-  <div>Cada noticia lleva a su nota original. Los resúmenes son propios. Esto no es una recomendación de inversión.</div>
 </footer>
+
+<!-- Cartel para colaborar: sale al minuto de uso, una sola vez -->
+<div class="colab-fondo" id="colab-fondo" data-donar-txt>
+  <div class="colab-card">
+    <button class="colab-x" type="button" id="colab-cerrar" aria-label="Cerrar">&times;</button>
+    <svg class="tacita" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M12 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M3 10h14v5a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-5"/><path d="M16.7 16.7a3 3 0 1 0 .3-5.5"/></svg>
+    <p class="colab-txt"><b>Mercado al Día es gratis siempre.</b><br>Si te ayudó, podés colaborar a que siga funcionando.</p>
+    <a class="colab-btn" data-donar href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M12 3a2.4 2.4 0 0 0-1 2a2.4 2.4 0 0 0 1 2"/><path d="M3 10h14v5a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6v-5"/><path d="M16.7 16.7a3 3 0 1 0 .3-5.5"/></svg>
+      Colaborar
+    </a>
+  </div>
+</div>
 
 <script>
   // Link de donación (Cafecito, Mercado Pago, etc.). Se cambia acá.
-  const LINK_DONAR = '#';
+  const LINK_DONAR = 'https://link.mercadopago.com.ar/tasitaa';
   // Mientras no haya link de donación, el botón Donar no se muestra (ni en el menú ni al final).
   document.querySelectorAll('[data-donar]').forEach(a => LINK_DONAR === '#' ? a.remove() : (a.href = LINK_DONAR));
+  if (LINK_DONAR === '#') document.querySelectorAll('[data-donar-txt]').forEach(p => p.remove());
+
+  /* ── Cartel para colaborar ──
+     Sale una sola vez, al minuto de estar leyendo, y solo si la persona no
+     está en el medio de otra cosa. Si lo cierra, no vuelve nunca más: no
+     tiene que sentirse una publicidad. El guardado va envuelto porque hay
+     navegadores que no lo permiten (incógnito) y ahí cortaría el script. */
+  const COLAB_KEY = 'mad_colab_cerrado';
+  const colabYaCerrado = () => { try { return localStorage.getItem(COLAB_KEY) === '1'; } catch (_) { return false; } };
+
+  function cerrarColaborar() {
+    const f = document.getElementById('colab-fondo');
+    if (f) f.classList.remove('open');
+    try { localStorage.setItem(COLAB_KEY, '1'); } catch (_) {}
+  }
+
+  function mostrarColaborar() {
+    const f = document.getElementById('colab-fondo');
+    if (!f || colabYaCerrado()) return;
+    // No interrumpir: si tiene el menú, el calendario o un gráfico abierto, espera.
+    const ocupada = document.querySelector('.menu-lista:not([hidden])') ||
+                    document.querySelector('dialog[open], .modal.open, .abierto');
+    if (ocupada) { setTimeout(mostrarColaborar, 30000); return; }
+    f.classList.add('open');
+  }
+
+  if (LINK_DONAR !== '#' && !colabYaCerrado()) {
+    const f = document.getElementById('colab-fondo');
+    if (f) {
+      document.getElementById('colab-cerrar').addEventListener('click', cerrarColaborar);
+      f.addEventListener('click', e => { if (e.target === f) cerrarColaborar(); });  // tocar afuera
+      f.querySelector('.colab-btn').addEventListener('click', cerrarColaborar);      // ya colaboró
+      setTimeout(mostrarColaborar, 60000);
+    }
+  }
 
   const num = (v, dec = 2) => v == null ? '–' : v.toLocaleString('es-AR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
   const pct = v => v == null ? '' : `${v > 0 ? '+' : ''}${num(v)}%`;
