@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-27T00:05:45.579Z",
+  "actualizado": "2026-10-27T00:06:21.462Z",
   "secciones": {
     "eeuu": {
       "precios": [
@@ -145,11 +145,11 @@
           "fecha": "2026-10-26T18:33:51.000Z",
           "tag": "Bonos",
           "nivel": 1,
-          "medios": 1,
-          "puntaje": 67,
+          "medios": 2,
+          "puntaje": 70,
           "detalle": {
             "tema": 40,
-            "cobertura": 8,
+            "cobertura": 13,
             "gigante": 0,
             "frescura": 6,
             "soloArgentinos": 0,
@@ -515,11 +515,11 @@
           "fecha": "2026-10-26T11:54:00.000Z",
           "tag": "BCRA",
           "nivel": 1,
-          "medios": 3,
-          "puntaje": 59,
+          "medios": 4,
+          "puntaje": 61,
           "detalle": {
             "tema": 40,
-            "cobertura": 16,
+            "cobertura": 19,
             "gigante": 0,
             "frescura": 4,
             "soloArgentinos": 0,
@@ -657,8 +657,8 @@
       "precios": [
         {
           "nombre": "Oro",
-          "precio": 4018.3,
-          "variacion": -0.498,
+          "precio": 4018.6,
+          "variacion": -0.49,
           "unidad": "US$"
         },
         {
@@ -669,14 +669,14 @@
         },
         {
           "nombre": "Bitcoin",
-          "precio": 80036.52,
-          "variacion": -0.029,
+          "precio": 80061.83,
+          "variacion": 0.003,
           "unidad": "US$"
         },
         {
           "nombre": "Plata",
-          "precio": 53.965,
-          "variacion": -0.692,
+          "precio": 53.955,
+          "variacion": -0.71,
           "unidad": "US$"
         },
         {
@@ -752,14 +752,14 @@
           "link": "https://www.bloomberglinea.com/mercados/dolar-hoy-en-brasil-se-dispara-tras-victora-de-lula-y-el-real-es-la-moneda-que-mas-cae-en-el-mundo/",
           "fuente": "Bloomberg Línea",
           "imagen": "https://www.bloomberglinea.com/resizer/v2/CP7YE2VBIVDHVN7P67F2CWQ5DI.jpg?auth=c4ed95139cf2d258087d1f2011fbdcf374c5dbac18caf497d9c9eef4e924c958&smart=true&width=1200&height=675",
-          "fecha": "2026-10-26T23:27:33.000Z",
+          "fecha": "2026-10-26T23:53:45.000Z",
           "tag": "Índices",
           "nivel": 1,
-          "medios": 23,
+          "medios": 21,
           "puntaje": 89,
           "detalle": {
             "tema": 40,
-            "cobertura": 37,
+            "cobertura": 36,
             "gigante": 0,
             "frescura": 8,
             "soloArgentinos": 0,
@@ -784,11 +784,11 @@
           "fecha": "2026-10-26T19:23:00.000Z",
           "tag": "Elecciones",
           "nivel": 1,
-          "medios": 7,
-          "puntaje": 77,
+          "medios": 5,
+          "puntaje": 75,
           "detalle": {
             "tema": 40,
-            "cobertura": 24,
+            "cobertura": 21,
             "gigante": 0,
             "frescura": 6,
             "soloArgentinos": 0,
@@ -802,6 +802,35 @@
           "porQue": "Las elecciones brasileñas son un evento binario que puede mover el dólar y la bolsa regional, afectando la percepción de riesgo en la región.",
           "activos": "Bolsa brasileña, dólar, riesgo regional",
           "estado": "analisis",
+          "fijada": false
+        },
+        {
+          "titulo": "Se frenó la venta masiva de bonos de Francia tras lograr que Moody's no rebaje su calificación crediticia",
+          "resumen": "Moody's mantuvo la calificación de Francia en Aa3, frenando la venta masiva de bonos y brindando respiro al gobierno francés.",
+          "link": "https://www.ambito.com/finanzas/se-freno-la-venta-masiva-bonos-francia-lograr-que-moodys-no-rebaje-su-calificacion-crediticia-n6337885",
+          "fuente": "Ámbito",
+          "imagen": "https://media.ambito.com/p/c8fe884a1bbb8d08e5f353c7691b45c9/adjuntos/239/imagenes/043/728/0043728156/1200x675/872x352:892x372/francia-mercados.jpg",
+          "fecha": "2026-10-26T17:14:34.000Z",
+          "tag": "Bonos",
+          "nivel": 1,
+          "medios": 3,
+          "puntaje": 70,
+          "detalle": {
+            "tema": 40,
+            "cobertura": 16,
+            "gigante": 0,
+            "frescura": 6,
+            "soloArgentinos": 0,
+            "bolsa": 8,
+            "elecciones": 0,
+            "empresa": 0,
+            "noInversion": 0,
+            "sinTema": 0
+          },
+          "ia": 70,
+          "porQue": "Mantenimiento de la calificación crediticia de Francia evita una crisis de deuda soberana en la eurozona, estabilizando los bonos europeos.",
+          "activos": "bonos franceses, bonos europeos, euro",
+          "estado": "hecho",
           "fijada": false
         },
         {
@@ -1005,35 +1034,6 @@
           "porQue": "Corrección técnica en futuros de petróleo Brent tras alcanzar máximos, señal de volatilidad en commodities.",
           "activos": "Petróleo Brent, futuros de energía",
           "estado": "analisis",
-          "fijada": false
-        },
-        {
-          "titulo": "El PIB de Corea del Sur crece más de lo esperado en el 3T por la IA",
-          "resumen": "El PIB de Corea del Sur creció más de lo esperado en el tercer trimestre, impulsado por la inteligencia artificial.",
-          "link": "https://es.investing.com/news/economic-indicators/el-pib-de-corea-del-sur-crece-mas-de-lo-esperado-en-el-3t-por-la-ia-3891214",
-          "fuente": "Investing",
-          "imagen": "https://content-media.investing.com/news/general-use-news-image3_M_1440049476.jpg",
-          "fecha": "2026-10-27T02:33:06.000Z",
-          "tag": "Economía",
-          "nivel": 1,
-          "medios": 1,
-          "puntaje": 60,
-          "detalle": {
-            "tema": 40,
-            "cobertura": 8,
-            "gigante": 0,
-            "frescura": 9,
-            "soloArgentinos": 0,
-            "bolsa": 0,
-            "elecciones": 0,
-            "empresa": 0,
-            "noInversion": 0,
-            "sinTema": 0
-          },
-          "ia": 63,
-          "porQue": "crecimiento del PIB surcoreano supera expectativas, impulsado por IA, puede elevar acciones locales y sector tecnológico",
-          "activos": "acciones coreanas, sector tecnológico",
-          "estado": "dato_oficial",
           "fijada": false
         }
       ]
