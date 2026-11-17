@@ -192,13 +192,6 @@
   .cal-evento .h { font-weight: 600; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
   .bandera { width: 22px; height: 15px; display: block; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.08); }
 
-  /* ── Fuentes (ventana; se abre desde el menú, usa el mismo formato que el calendario) ── */
-  .fuentes-intro { margin: 14px 0 0; font-size: 14px; color: var(--muted); text-align: center; }
-  .fuente { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px; font-size: 14px; font-weight: 600; }
-  .fuente + .fuente { border-top: 1px solid var(--line); }
-  .fuente svg { width: 16px; height: 16px; flex: none; color: var(--muted); }
-  @media (hover: hover) { .fuente:hover { background: var(--chip); } }
-
   .titulo-seccion {
     font-size: 12px; font-weight: 600; color: var(--muted);
     text-transform: uppercase; letter-spacing: .06em;
@@ -323,10 +316,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="8" cy="15" r="1" fill="currentColor"/><circle cx="12" cy="15" r="1" fill="currentColor"/><circle cx="16" cy="15" r="1" fill="currentColor"/></svg>
           Calendario económico
         </button>
-        <button class="menu-item" id="abrir-fuentes" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h12a2 2 0 0 1 2 2v12a2 2 0 0 0 2-2V9"/><path d="M4 5v13a2 2 0 0 0 2 2h12"/><path d="M8 9h6M8 13h6M8 17h3"/></svg>
-          Fuentes
-        </button>
       </div>
     </div>
   </div>
@@ -352,16 +341,6 @@
       <button class="cerrar" id="cerrar-cal" type="button" aria-label="Cerrar">×</button>
     </div>
     <div class="cal-lista" id="cal-lista"></div>
-  </div>
-</div>
-
-<div class="cal-fondo" id="fuentes-fondo">
-  <div class="cal" role="dialog" aria-modal="true" aria-labelledby="fuentes-titulo">
-    <div class="cal-cabeza">
-      <div><h2 id="fuentes-titulo">Fuentes de información</h2><p>Lo que leemos todos los días para armar la página</p></div>
-      <button class="cerrar" id="cerrar-fuentes" type="button" aria-label="Cerrar">×</button>
-    </div>
-    <div class="cal-lista" id="fuentes-lista"></div>
   </div>
 </div>
 
@@ -523,7 +502,7 @@
         <span class="num-chico">${i + 1}</span><span class="tag">${esc(n.tag)}</span>
         <h2>${esc(n.titulo)}</h2>
         ${n.resumen ? `<p>${esc(n.resumen)}</p>` : ''}
-        <div class="meta"><b>${esc(n.fuente)}</b> · ${hace(n.fecha)}${otros}</div>
+        <div class="meta">${hace(n.fecha)}${otros}</div>
       </div>
     </a>`;
   }
@@ -590,93 +569,6 @@
   function abrirCal() { pintarCalendario(); fondoCal.classList.add('abierto'); document.body.style.overflow = 'hidden'; document.getElementById('cal-lista').scrollTop = 0; }
   function cerrarCal() { fondoCal.classList.remove('abierto'); document.body.style.overflow = ''; }
   document.getElementById('abrir-cal').addEventListener('click', () => { cerrarMenu(); abrirCal(); });
-
-  // ── Fuentes: los medios que se leen, agrupados por país ──
-  const ORDEN_PAISES = ['Argentina', 'Estados Unidos', 'Internacional', 'Reino Unido', 'España', 'Francia', 'Alemania', 'Rusia', 'Canadá', 'Uruguay', 'Brasil', 'México', 'Hong Kong', 'Japón', 'Qatar'];
-  const FLECHA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
-  function pintarFuentes() {
-    const f = datos?.fuentes;
-    if (!f) { document.getElementById('fuentes-lista').innerHTML = '<div class="estado">Cargando…</div>'; return; }
-    const porPais = {};
-    for (const m of f.medios) (porPais[m.pais] ||= []).push(m);
-    const paises = Object.keys(porPais).sort((a, b) => ((ORDEN_PAISES.indexOf(a) + 1) || 99) - ((ORDEN_PAISES.indexOf(b) + 1) || 99));
-    const fila = (nombre, web) => `<a class="fuente" href="${esc(web)}" target="_blank" rel="noopener"><span>${esc(nombre)}</span>${FLECHA}</a>`;
-    const cantPaises = paises.filter(p => p !== 'Internacional').length;
-    document.getElementById('fuentes-lista').innerHTML =
-      `<p class="fuentes-intro">Leemos <b>${f.medios.length} medios</b> de ${cantPaises} países.</p>` +
-      paises.map(p => `<div class="cal-dia">${esc(p)}</div><div class="cal-grupo">${porPais[p].map(m => fila(m.nombre, m.web)).join('')}</div>`).join('');
-  }
-  const fondoFuentes = document.getElementById('fuentes-fondo');
-  function abrirFuentes() { pintarFuentes(); fondoFuentes.classList.add('abierto'); document.body.style.overflow = 'hidden'; document.getElementById('fuentes-lista').scrollTop = 0; }
-  function cerrarFuentes() { fondoFuentes.classList.remove('abierto'); document.body.style.overflow = ''; }
-  document.getElementById('abrir-fuentes').addEventListener('click', () => { cerrarMenu(); abrirFuentes(); });
-  document.getElementById('cerrar-fuentes').addEventListener('click', cerrarFuentes);
-  fondoFuentes.addEventListener('click', e => { if (e.target === fondoFuentes) cerrarFuentes(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarFuentes(); });
-
-  // ── Gráfico de un ETF de sectores: 1M · 6M · 1A (arranca acá) · 5A ──
-  const PERIODOS = [['1M', 'en 1 mes', 'diario', 31], ['6M', 'en 6 meses', 'diario', 183], ['1A', 'en 1 año', 'diario', 366], ['5A', 'en 5 años', 'semanal', 1827]];
-  let etfAbierto = null, periodo = '1A';
-  const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-  const fechaCorta = dia => { const f = new Date(dia * 864e5); return `${f.getUTCDate()} ${MESES[f.getUTCMonth()]} ${f.getUTCFullYear()}`; };
-  function puntosDe(e, codigo) {
-    const [, , serie, dias] = PERIODOS.find(p => p[0] === codigo);
-    const lista = e[serie] || [];
-    if (!lista.length) return [];
-    const desde = lista.at(-1)[0] - dias;
-    return lista.filter(p => p[0] >= desde);
-  }
-  function dibujarEtf() {
-    const e = etfAbierto, pts = puntosDe(e, periodo), [, texto] = PERIODOS.find(p => p[0] === periodo);
-    const cuerpo = document.getElementById('etf-cuerpo');
-    const botones = PERIODOS.map(([c]) => `<button type="button" data-periodo="${c}" aria-pressed="${c === periodo}">${c}</button>`).join('');
-    const cabeza = `<div class="etf-precio">${num(e.precio)}</div><div class="etf-dia ${clase(e.variacion)}">${pct(e.variacion)} hoy</div><div class="etf-periodos">${botones}</div>`;
-    if (pts.length < 2) { cuerpo.innerHTML = cabeza + '<div class="estado">No hay datos para este período.</div>'; return; }
-    const valores = pts.map(p => p[1]), min = Math.min(...valores), max = Math.max(...valores);
-    const cambio = (valores.at(-1) / valores[0] - 1) * 100;
-    const color = cambio >= 0 ? 'var(--up)' : 'var(--down)';
-    const W = 320, H = 190, arriba = 10, abajo = 10;
-    const x = i => (i / (pts.length - 1)) * W;
-    const y = v => arriba + (max === min ? 0.5 : (max - v) / (max - min)) * (H - arriba - abajo);
-    const linea = pts.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p[1]).toFixed(1)}`).join('');
-    cuerpo.innerHTML = cabeza +
-      `<div class="etf-lectura" id="etf-lectura">&nbsp;</div>
-      <svg class="etf-grafico" id="etf-grafico" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Precio de ${esc(e.simbolo)} ${texto}">
-        <path d="${linea}L${W},${H}L0,${H}Z" fill="${color}" opacity=".12"/>
-        <path d="${linea}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/>
-        <line id="etf-guia" y1="0" y2="${H}" stroke="var(--muted)" stroke-width="1" vector-effect="non-scaling-stroke" visibility="hidden"/>
-      </svg>
-      <div class="etf-fechas"><span>${fechaCorta(pts[0][0])}</span><span>${fechaCorta(pts.at(-1)[0])}</span></div>
-      <div class="etf-resumen ${clase(cambio)}">${pct(cambio)} ${texto}<small>Máximo ${num(max)} · Mínimo ${num(min)}</small></div>`;
-    // Con el dedo (o el mouse) sobre el gráfico: fecha y precio de ese punto.
-    const svg = document.getElementById('etf-grafico'), guia = document.getElementById('etf-guia'), lectura = document.getElementById('etf-lectura');
-    const mover = ev => {
-      const r = svg.getBoundingClientRect();
-      const i = Math.max(0, Math.min(pts.length - 1, Math.round(((ev.clientX - r.left) / r.width) * (pts.length - 1))));
-      guia.setAttribute('x1', x(i)); guia.setAttribute('x2', x(i)); guia.setAttribute('visibility', 'visible');
-      lectura.textContent = `${fechaCorta(pts[i][0])} · ${num(pts[i][1])}`;
-    };
-    svg.addEventListener('pointerdown', mover);
-    svg.addEventListener('pointermove', mover);
-    svg.addEventListener('pointerleave', () => { guia.setAttribute('visibility', 'hidden'); lectura.innerHTML = '&nbsp;'; });
-  }
-  const fondoEtf = document.getElementById('etf-fondo');
-  function abrirEtf(simbolo) {
-    etfAbierto = (datos?.secciones?.mundo?.sectores || []).find(e => e.simbolo === simbolo);
-    if (!etfAbierto) return;
-    periodo = '1A';
-    document.getElementById('etf-titulo').textContent = etfAbierto.simbolo;
-    document.getElementById('etf-sub').textContent = etfAbierto.nombre + ' · ETF de EE.UU. (US$)';
-    dibujarEtf();
-    fondoEtf.classList.add('abierto'); document.body.style.overflow = 'hidden';
-  }
-  function cerrarEtf() { fondoEtf.classList.remove('abierto'); document.body.style.overflow = ''; }
-  document.getElementById('movs').addEventListener('click', ev => { const f = ev.target.closest('[data-etf]'); if (f) abrirEtf(f.dataset.etf); });
-  document.getElementById('movs').addEventListener('keydown', ev => { const f = ev.target.closest('[data-etf]'); if (f && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); abrirEtf(f.dataset.etf); } });
-  document.getElementById('etf-cuerpo').addEventListener('click', ev => { const b = ev.target.closest('[data-periodo]'); if (b) { periodo = b.dataset.periodo; dibujarEtf(); } });
-  document.getElementById('cerrar-etf').addEventListener('click', cerrarEtf);
-  fondoEtf.addEventListener('click', ev => { if (ev.target === fondoEtf) cerrarEtf(); });
-  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') cerrarEtf(); });
 
   // ── Menú de tres rayitas ──
   const botonMenu = document.getElementById('abrir-menu'), listaMenu = document.getElementById('menu-lista');

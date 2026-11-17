@@ -583,6 +583,8 @@ async function inflacionEEUU() {
   return r;
 }
 
+const ARCHIVO_MERVAL = new URL('./cache-merval.json', import.meta.url);
+
 async function precios() {
   const res = await Promise.allSettled(ACTIVOS.map(async ([sim, nombre, region]) => {
     const d = await traer(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sim)}?range=5d&interval=1d`, { json: true });
@@ -666,7 +668,23 @@ async function precios() {
     const r = await pedirMerval().catch(pedirMerval);
     const m = r.data.find(x => x.symbol === 'MMSCI');
     lista.unshift({ region: 'argentina', nombre: 'MSCI Merval', precio: m.price, variacion: m.variation * 100, unidad: '' });
-  } catch (e) { console.warn('No respondió el Merval', e.message); }
+    await writeFile(ARCHIVO_MERVAL, JSON.stringify({ precio: m.price, variacion: m.variation * 100, t: Date.now() }));
+  } catch (e) {
+    // Si BYMA no responde (a veces se cae entera), queda el último valor guardado en vez de que desaparezca.
+    console.warn('No respondió el Merval, uso el último guardado', e.message);
+    try {
+      const g = JSON.parse(await readFile(ARCHIVO_MERVAL, 'utf8'));
+      // Si el dato tiene más de 20 horas, en vez de la variación se muestra de qué día es (ej. "cierre 13/11"),
+      // para que nadie tome el número de otro día como si fuera de hoy.
+      const viejo = Date.now() - g.t > 20 * 3600e3;
+      const f = new Date(new Date(g.t).toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' }) + 'T12:00:00Z');
+      while ([0, 6].includes(f.getUTCDay())) f.setUTCDate(f.getUTCDate() - 1);
+      lista.unshift({
+        region: 'argentina', nombre: 'MSCI Merval', precio: g.precio, variacion: viejo ? null : g.variacion, unidad: '',
+        ...(viejo ? { sub: `cierre ${f.getUTCDate()}/${f.getUTCMonth() + 1}` } : {}),
+      });
+    } catch {}
+  }
   try {
     // Inflación acumulada de los últimos 12 meses (INDEC, sale una vez por mes).
     const ultimo = (await traer('https://api.argentinadatos.com/v1/finanzas/indices/inflacionInteranual', { json: true })).at(-1);
@@ -914,9 +932,6 @@ await writeFile(new URL('./public/noticias.json', import.meta.url), JSON.stringi
   actualizado: new Date().toISOString(),
   secciones,
   calendario: agenda,
-  fuentes: {
-    medios: [...new Set(DIARIOS.map(d => d.fuente))].map(nombre => ({ nombre, pais: MEDIOS[nombre]?.[0] || '', web: MEDIOS[nombre]?.[1] || '' })),
-  },
 }));   // sin espacios: lo lee el celular (con los gráficos de los ETF, ordenado pesaba 4 veces más)
 
 for (const r of PESTAÑAS) {
