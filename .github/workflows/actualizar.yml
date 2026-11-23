@@ -1,13 +1,14 @@
 # Arma las noticias solas y publica la página (GitHub Pages).
-# Horario acordado con Marc: cada 1 hora de lunes a viernes de 10 a 18 (hora argentina, UTC-3)
-# y cada 2 horas el resto. GitHub puede atrasar unos minutos cada corrida.
+# Horario: cada 30 minutos de lunes a viernes de 10 a 18 (hora argentina, UTC-3) y cada 2 horas el resto.
+# Nunca a la hora en punto: a esa hora GitHub está saturado y se saltea corridas (el 2026-11-23 corrió
+# 2 veces en 12 horas). Por eso a los :07 y :37, y cada media hora: si se saltea una, viene otra enseguida.
 name: Actualizar noticias
 
 on:
   schedule:
-    - cron: '0 13-21 * * 1-5'                    # lunes a viernes, 10 a 18 de Argentina: cada hora
-    - cron: '0 0,2,4,6,8,10,12,22 * * 1-5'       # lunes a viernes, el resto: cada 2 horas
-    - cron: '0 */2 * * 0,6'                      # sábados y domingos: cada 2 horas
+    - cron: '7,37 13-21 * * 1-5'                 # lunes a viernes, 10 a 18 de Argentina: cada 30 minutos
+    - cron: '23 0,2,4,6,8,10,12,22 * * 1-5'      # lunes a viernes, el resto: cada 2 horas
+    - cron: '23 */2 * * 0,6'                     # sábados y domingos: cada 2 horas
   workflow_dispatch:                             # botón para correrla a mano desde GitHub
   push:
     branches: [main]

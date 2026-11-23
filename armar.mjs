@@ -361,25 +361,34 @@ function puntuar(grupo, titularesGoogle) {
   for (const g of titularesGoogle) if (parecido(principal.palTit, g.pal) >= 0.5) medios.add(g.medio);
   const cobertura = Math.log2(medios.size + 1) * 8;
 
-  // 3. Empresas gigantes.
-  const gigante = GIGANTES.some(p => titulo.includes(p)) ? 6 : 0;
+  // 3. Empresas gigantes (Nvidia, Apple, Microsoft…): una noticia fuerte de ellas mueve al índice entero.
+  const esGigante = GIGANTES.some(p => titulo.includes(p) || paraBuscar(mostrar.titulo).includes(p));
+  const gigante = esGigante ? 6 : 0;
 
-  // 4. Frescura.
-  if (RUIDO.some(p => titulo.includes(p))) return null;
-  const horas = (Date.now() - Math.max(...grupo.map(n => +n.fecha))) / 3600e3;
-  const frescura = Math.max(0, 8 - horas / 3);
+  // 4. Frescura. Las palabras de RUIDO ("director ejecutivo", "despidos"…) no tiran una nota de una gigante:
+  //    que Nvidia cambie de CEO es de lo más importante que puede pasar en el mercado.
+  if (!esGigante && RUIDO.some(p => titulo.includes(p))) return null;
+  // Algunos diarios publican con la hora corrida (notas "del futuro"): ninguna cuenta como más nueva que ahora.
+  const ultima = Math.min(Date.now(), Math.max(...grupo.map(n => +n.fecha)));
+  const horas = (Date.now() - ultima) / 3600e3;
+  // Lo nuevo manda: +10 recién salida, 0 a las 16 h, -4 al día, -19 a los dos días (Marc: "las noticias
+  // tienen que ser de hace un par de horas").
+  const frescura = Math.max(-25, 10 - horas * 0.6);
+  // La noticia del momento: muchos medios contándola en pocas horas.
+  const momento = medios.size >= 8 && horas <= 12 ? 15 : medios.size >= 5 && horas <= 6 ? 8 : 0;
   const edad = horas;   // para la selección final
 
   // 5. Bolsa sí, bolsillo y política no.
   const tituloMostrar = paraBuscar(mostrar.titulo);
-  const empresaAr = EMPRESAS_AR.some(p => titulo.includes(p) || tituloMostrar.includes(p));
+  const empresaAr = EMPRESAS_AR.some(p => titulo.includes(p) || tituloMostrar.includes(p)) || esGigante;
   const deBolsa = empresaAr || DE_BOLSA.some(p => titulo.includes(p) || tituloMostrar.includes(p));
   const delBolsillo = NO_INVERSION.some(p => titulo.includes(p) || tituloMostrar.includes(p));
   const bolsa = deBolsa && !delBolsillo ? 8 : 0;
   // Si mezcla las dos (ej. "oro del Banco Central: investigan a…") baja la mitad.
   // Elecciones sin ángulo de mercado son política: se castigan igual que la política.
   const politicaElectoral = tema.tag === 'Elecciones' && !deBolsa;
-  const noInversion = delBolsillo || politicaElectoral ? (deBolsa ? 12 : 25) : 0;
+  // Una gigante no se castiga por palabras como "escándalo" o "investigación": ahí está la noticia.
+  const noInversion = politicaElectoral || (delBolsillo && !esGigante) ? (deBolsa ? 12 : 25) : 0;
   // Una noticia de una empresa argentina que cotiza vale como un tema de primer nivel (ej. "Galicia puede subir 97%, según Morgan Stanley").
   const empresa = empresaAr ? 12 + Math.max(0, 30 - tema.peso) : 0;
   // Sin ningún tema de mercado en el título (ej. "Nueva York instala cámaras en los cruces"): baja.
@@ -389,7 +398,7 @@ function puntuar(grupo, titularesGoogle) {
   // Elecciones con ángulo de mercado (ej. "el Ibovespa cae tras…", "los CEDEAR brasileños, gane quien gane"): suben.
   const elecciones = tema.tag === 'Elecciones' && deBolsa ? 10 : 0;
 
-  const puntaje = Math.round(tema.peso + cobertura + gigante + frescura + bolsa + elecciones + empresa - soloArgentinos - noInversion - sinTema);
+  const puntaje = Math.round(tema.peso + cobertura + gigante + frescura + momento + bolsa + elecciones + empresa - soloArgentinos - noInversion - sinTema);
 
   return {
     titulo: mostrar.titulo,
@@ -399,7 +408,7 @@ function puntuar(grupo, titularesGoogle) {
     link: mostrar.link,
     fuente: mostrar.fuente,
     imagen: mostrar.imagen,
-    fecha: new Date(Math.max(...grupo.map(n => +n.fecha))).toISOString(),
+    fecha: new Date(ultima).toISOString(),
     region: reg,
     tag: tema.tag,
     nivel: tema.nivel,
@@ -407,7 +416,7 @@ function puntuar(grupo, titularesGoogle) {
     puntaje,
     horas: Math.round(edad),
     pal: [...principal.pal],
-    detalle: { tema: tema.peso, cobertura: Math.round(cobertura), gigante, frescura: Math.round(frescura), soloArgentinos, bolsa, elecciones, empresa, noInversion, sinTema },
+    detalle: { tema: tema.peso, cobertura: Math.round(cobertura), gigante, frescura: Math.round(frescura), momento, soloArgentinos, bolsa, elecciones, empresa, noInversion, sinTema },
   };
 }
 
@@ -455,6 +464,8 @@ QUÉ BUSCAR EN CADA PESTAÑA (son criterios, no cupos):
 - eeuu: Fed, tasas y liquidez; inflación, empleo, PBI, consumo; bonos del Tesoro, rendimientos, deuda y VIX; S&P 500, Nasdaq, Dow Jones; resultados de empresas, previsiones, fusiones, quiebras; IA, semiconductores, centros de datos; aranceles, impuestos y regulación con efecto económico material.
 - argentina: BCRA, tasas y régimen monetario; riesgo país, bonos, deuda, licitaciones y vencimientos; dólar oficial, MEP, CCL y blue cuando hay cambios relevantes; reservas y flujos de divisas; inflación, actividad, empleo y resultado fiscal; acciones, ADR y balances de empresas que cotizan (YPF, Pampa, Galicia…); energía, Vaca Muerta, agro, minería, exportaciones; reformas, impuestos y tarifas que cambien flujos de caja, inversión o riesgo soberano.
 - mundo: guerras, sanciones y conflictos que afecten mercados o suministros; petróleo, gas, oro, metales y granos; BCE, Banco de Japón, Banco de Inglaterra, Banco Popular de China; inflación, deuda y crisis financieras; bolsas y empresas internacionales; aranceles, cadenas de suministro, restricciones tecnológicas; bitcoin y cripto solo con impacto financiero material.
+
+EMPRESAS GIGANTES: un cambio de CEO o de directorio, un escándalo, una investigación oficial o una caída o suba fuerte en Nvidia, Apple, Microsoft, Amazon, Alphabet, Meta, Tesla o similares mueve al mercado entero: vale 85 o más. Ej.: "Nvidia reincorpora a Jensen Huang como CEO" = 95.
 
 GEOPOLÍTICA: ataques, amenazas de ataque, bloqueos o escaladas militares que involucren a Irán, el estrecho de Ormuz, el Golfo, Rusia-Ucrania, China-Taiwán u otras zonas que afecten petróleo, gas, rutas comerciales o la aversión al riesgo valen 70 o más, aunque la nota sea una declaración (por ejemplo, "Trump insinúa nuevos ataques a Irán").
 
@@ -858,6 +869,10 @@ function elegir(todas, cantidad) {
 
 const PESTAÑAS = ['eeuu', 'argentina', 'mundo'];
 let candidatas = PESTAÑAS.flatMap(r => elegir(noticiasTodas.filter(n => n.region === r), CANTIDAD + 6));
+// Lo que cuentan 6 medios o más en el último día va a Groq sí o sí, aunque las reglas lo hayan dejado abajo
+// (así se perdió la vuelta de Jensen Huang a Nvidia: 16 medios y 2 puntos por reglas).
+for (const n of noticiasTodas)
+  if (n.medios >= 6 && n.horas <= 24 && n.puntaje > -50 && !candidatas.includes(n)) candidatas.push(n);
 // Toda nota tiene que tener foto: a las que no la traen se les busca en la página de la nota; si no hay, afuera.
 await Promise.all(candidatas.filter(n => !n.imagen).map(async n => { n.imagen = await buscarFoto(n.link); }));
 candidatas = candidatas.filter(n => n.imagen);
@@ -872,14 +887,19 @@ const CRITICA = 85, FIJADAS_POR_PESTAÑA = 2;
 const ARCHIVO_FIJADAS = new URL('./fijadas.json', import.meta.url);
 let fijadas = {};
 try { fijadas = JSON.parse(await readFile(ARCHIVO_FIJADAS, 'utf8')); } catch {}
-for (const [link, f] of Object.entries(fijadas)) if (Date.now() - f.desde > 24 * 3600e3) delete fijadas[link];
+// Cada fijada guarda hasta cuándo vale (24 h desde que salió la noticia). Vencida, se recuerda 3 días más
+// para no volver a fijarla.
+for (const f of Object.values(fijadas)) f.hasta ??= Date.parse(f.nota.fecha) + 24 * 3600e3;   // fijadas viejas
+for (const [link, f] of Object.entries(fijadas)) if (Date.now() - f.hasta > 3 * 864e5) delete fijadas[link];
 for (const n of candidatas)
-  if (n.ia >= CRITICA && n.estado !== 'opinion' && !fijadas[n.link]) fijadas[n.link] = { desde: Date.now(), nota: n };
+  if (n.ia >= CRITICA && n.estado !== 'opinion' && n.horas <= 12 && !fijadas[n.link])
+    fijadas[n.link] = { desde: Date.now(), hasta: Date.parse(n.fecha) + 24 * 3600e3, nota: n };
 await writeFile(ARCHIVO_FIJADAS, JSON.stringify(fijadas));
-// Las fijadas que ya no vinieron en esta actualización se vuelven a sumar como estaban.
+const vigente = f => Date.now() < f.hasta;
+// Las fijadas vigentes que ya no vinieron en esta actualización se vuelven a sumar como estaban.
 const yaEstan = new Set(candidatas.map(n => n.link));
-for (const { nota } of Object.values(fijadas)) if (!yaEstan.has(nota.link)) candidatas.push(nota);
-for (const n of candidatas) n.fijada = !!fijadas[n.link];
+for (const f of Object.values(fijadas)) if (vigente(f) && !yaEstan.has(f.nota.link)) candidatas.push(f.nota);
+for (const n of candidatas) n.fijada = !!fijadas[n.link] && vigente(fijadas[n.link]);
 
 // Se eligen las tres pestañas juntas, de la nota con más puntaje a la de menos: si una historia ya quedó
 // en una pestaña (ej. la caída del bitcoin en Mundo), no se vuelve a poner en otra.
@@ -892,7 +912,8 @@ const elegidas = { eeuu: [], argentina: [], mundo: [] };
   // MINIMO, se completa con lo siguiente mejor de hasta 2 días atrás (Groq 40 o más, nunca rumores ni política).
   const ordenar = lista => lista.sort((a, b) => (b.fijada - a.fijada) || (b.fijada && a.fijada ? b.ia - a.ia : 0) || (b.puntaje - a.puntaje));
   const primera = ordenar(candidatas.filter(n => n.puntaje >= PUNTAJE_MINIMO && !n.debajoDelCorte && (n.fijada || n.horas <= 24)));
-  const segunda = ordenar(candidatas.filter(n => n.puntaje >= 25 && !primera.includes(n)));
+  const finde = [0, 6].includes(new Date(new Date().toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' }) + 'T12:00:00Z').getUTCDay());
+  const segunda = ordenar(candidatas.filter(n => n.puntaje >= 25 && !primera.includes(n) && n.horas <= (finde ? 48 : 24)));
   for (const [pasada, enOrden] of [[1, primera], [2, segunda]])
   for (const n of enOrden) {
     const lista = elegidas[n.region];
