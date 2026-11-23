@@ -535,7 +535,7 @@ async function pasarPorIA(noticias) {
     if (ronda) await new Promise(res => setTimeout(res, 20000));   // el plan gratis limita cuánto texto por minuto
     const lista = nuevas.map((n, i) => `${i}. [${n.region} · ${n.tag} · ${n.fuente}] ${n.titulo}${n.tituloOriginal ? ` (original: ${n.tituloOriginal})` : ''} — ${n.resumen || recortar(n.resumenOriginal || '', 250)}`).join('\n');
     try {
-      for (const { i, puntaje, estado, motivo, activos, titulo, resumen } of await preguntarGroq(clave, CRITERIO.replace('FECHA_DE_HOY', hoy) + '\n\n' + lista)) {
+      for (const { i, puntaje, estado, motivo, activos, titulo, resumen } of await preguntarGroq(clave, CRITERIO.replace('FECHA_DE_HOY', hoy) + (globalThis.RADAR_TEXTO ? '\n\n' + globalThis.RADAR_TEXTO : '') + '\n\n' + lista)) {
         const n = nuevas[i];
         if (n && Number.isFinite(+puntaje)) memoria[n.link] = { puntaje: Math.max(0, Math.min(100, +puntaje)), estado: estado || '', motivo: motivo || '', activos: activos || '', titulo: titulo || '', resumen: resumen || '', t: Date.now() };
       }
@@ -665,7 +665,11 @@ async function precios() {
     // El último valor contra el del día anterior. inverso: subir es malo, la página lo pinta en rojo.
     const serie = await traer('https://api.argentinadatos.com/v1/finanzas/indices/riesgo-pais', { json: true });
     const [ant, ult] = serie.slice(-2);
-    lista.unshift({ region: 'argentina', nombre: 'Riesgo país', precio: ult.valor, variacion: (ult.valor / ant.valor - 1) * 100, inverso: true, unidad: 'pb' });
+    const hoyAR = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' });
+    const deHoy = ult.fecha === hoyAR;
+    const [, mesRP, diaRP] = ult.fecha.split('-');
+    lista.unshift({ region: 'argentina', nombre: 'Riesgo país', precio: ult.valor, variacion: deHoy ? (ult.valor / ant.valor - 1) * 100 : null, inverso: true, unidad: 'pb',
+      ...(deHoy ? {} : { sub: `cierre ${+diaRP}/${+mesRP}` }) });
   } catch { console.warn('No respondió el riesgo país'); }
   try {
     // Merval: desde el 19/10/2026 lo administra MSCI (arrancó de nuevo en 100.000 puntos)
@@ -715,6 +719,22 @@ const ESTADOUNIDENSES = ['ACN', 'ETN', 'STX', 'TT', 'TEL', 'CB', 'JCI', 'GRMN', 
 // Y unas pocas gigantes de afuera, muy seguidas acá, que cotizan en EE.UU. (Marc pidió TSMC "y demás").
 const EXTRANJERAS_SI = ['TSM', 'ASML', 'ARM', 'SHOP', 'SPOT', 'MELI'];
 
+// Precio y cambio del día de Yahoo, de a 20 acciones por pedido. Si Yahoo no responde, queda lo de Nasdaq.
+async function alDiaConYahoo(lista) {
+  for (let i = 0; i < lista.length; i += 20) {
+    const tanda = lista.slice(i, i + 20);
+    try {
+      const d = await traer('https://query1.finance.yahoo.com/v8/finance/spark?range=1d&interval=1d&symbols=' +
+        tanda.map(e => encodeURIComponent(e.simbolo.replace(/[./]/g, '-'))).join(','), { json: true });
+      for (const e of tanda) {
+        const x = d[e.simbolo.replace(/[./]/g, '-')];
+        const ultimo = x?.close?.filter(v => v != null).at(-1);
+        if (ultimo && x.chartPreviousClose) { e.precio = ultimo; e.variacion = (ultimo / x.chartPreviousClose - 1) * 100; }
+      }
+    } catch { /* queda lo de Nasdaq */ }
+  }
+}
+
 async function movimientos() {
   try {
     const d = await traer('https://api.nasdaq.com/api/screener/stocks?tableonly=true&download=true&marketcap=mega|large', {
@@ -725,10 +745,12 @@ async function movimientos() {
       .filter(r => r.country === 'United States' || ESTADOUNIDENSES.includes(r.symbol) || EXTRANJERAS_SI.includes(r.symbol))
       .map(r => ({ simbolo: r.symbol, nombre: r.name, precio: numero(r.lastsale), variacion: numero(r.pctchange), tamaño: numero(r.marketCap) }))
       .filter(r => r.tamaño >= TAMAÑO_MINIMO && Number.isFinite(r.variacion))
-      .sort((a, b) => b.variacion - a.variacion)
-      .map(({ tamaño, ...r }) => r);
-    return [grandes.filter(r => r.variacion > 0).slice(0, 5), grandes.filter(r => r.variacion < 0).slice(-5).reverse()];
-  } catch (e) { console.warn('No respondió el listado de Nasdaq', e.message); return [[], []]; }
+      .sort((a, b) => b.variacion - a.variacion);
+    await alDiaConYahoo(grandes);
+    grandes.sort((a, b) => b.variacion - a.variacion);
+    const sinTamaño = grandes.map(({ tamaño, ...r }) => r);
+    return [sinTamaño.filter(r => r.variacion > 0).slice(0, 5), sinTamaño.filter(r => r.variacion < 0).slice(-5).reverse(), grandes];
+  } catch (e) { console.warn('No respondió el listado de Nasdaq', e.message); return [[], [], []]; }
 }
 
 // Las que más suben y bajan en la bolsa argentina: las acciones del panel líder del Merval
@@ -841,16 +863,65 @@ async function sectores() {
 
 // ───────────────────────── Armar todo ─────────────────────────
 
-const [noticiasTodas, listaPrecios, [suben, bajan], [subenArg, bajanArg, cierreArg], [listaSectores, cierreSectores], agenda] = await Promise.all([
+const [noticiasTodas, listaPrecios, [suben, bajan, grandesEEUU], [subenArg, bajanArg, cierreArg], [listaSectores, cierreSectores], agenda] = await Promise.all([
   juntarNoticias(), precios(), movimientos(), movimientosArg(), sectores().catch(() => [[], '']), calendario().catch(e => { console.warn('No se pudo armar el calendario', e.message); return []; }),
 ]);
+// ───────────────────────── Radar del mercado ─────────────────────────
+// Lo que se movió fuerte hoy, con datos reales. Cada señal tiene las palabras con que la nombran los diarios
+// y una fuerza (puntos extra para las noticias que la mencionan en el título).
+const NOMBRE_EMPRESA = { GOOGL: [' google', ' alphabet'], GOOG: [' google', ' alphabet'], META: [' meta '], 'BRK.B': [' berkshire'], 'BRK.A': [' berkshire'], JPM: [' jpmorgan', ' jp morgan'], AVGO: [' broadcom'], TSM: [' tsmc'], LLY: [' eli lilly', ' lilly'], UNH: [' unitedhealth'], XOM: [' exxon'], MELI: [' mercadolibre', ' mercado libre'] };
+const GENERICAS = new Set(['the', 'american', 'united', 'international', 'general', 'first', 'bank', 'global', 'advanced']);
+function palabrasEmpresa(e) {
+  if (NOMBRE_EMPRESA[e.simbolo]) return NOMBRE_EMPRESA[e.simbolo];
+  const primera = sinTildes(e.nombre).replace(/[^a-z0-9 ]/g, ' ').trim().split(/\s+/)[0];
+  return primera && primera.length >= 4 && !GENERICAS.has(primera) ? [' ' + primera] : [];
+}
+const radar = [];
+const senal = (palabras, fuerza, motivo) => palabras.length && radar.push({ palabras, fuerza: Math.round(fuerza), motivo });
+// Empresas: solo las 8 que más se movieron (en un día de suba general marcar 35 es no marcar nada),
+// sin repetir la misma empresa (Alphabet cotiza con dos símbolos).
+const nombresVistos = new Set();
+const empresasRadar = (grandesEEUU || [])
+  .filter(e => (e.tamaño >= 300e9 && Math.abs(e.variacion) >= 4) || (e.tamaño >= 50e9 && Math.abs(e.variacion) >= 8))
+  .sort((a, b) => Math.abs(b.variacion) - Math.abs(a.variacion))
+  .filter(e => { const k = palabrasEmpresa(e).join(); return k && !nombresVistos.has(k) && nombresVistos.add(k); })
+  .slice(0, 8);
+for (const e of empresasRadar) {
+  const mov = Math.abs(e.variacion);
+  if (true)
+    senal(palabrasEmpresa(e), Math.min(30, 12 + mov), `${e.nombre.split(' ').slice(0, 2).join(' ')} ${e.variacion > 0 ? '+' : ''}${e.variacion.toFixed(1)}%`);
+}
+const precioDe = n => listaPrecios.find(p => p.nombre === n);
+const movio = (n, umbral) => { const p = precioDe(n); return p && Number.isFinite(p.variacion) && Math.abs(p.variacion) >= umbral ? p : null; };
+for (const [n, u, pal] of [
+  ['S&P 500', 1.5, [' wall street', ' s&p', ' dow jones', ' bolsas de ee', ' bolsa de nueva york']],
+  ['Nasdaq', 2, [' nasdaq', ' tecnologicas']],
+  ['MSCI Merval', 4, [' merval', ' acciones argentinas', ' adr', ' bolsa portena']],
+  ['Riesgo país', 4, [' riesgo pais', ' bonos argentinos']],
+  ['Brent', 3, [' petroleo', ' brent', ' crudo']],
+  ['Oro', 2.5, [' el oro', ' del oro', ' onza']],   // no ' oro ' suelto: "regla de oro" no es el metal
+  ['Bitcoin', 5, [' bitcoin', ' cripto']],
+]) { const p = movio(n, u); if (p) senal(pal, 12 + Math.abs(p.variacion), `${n} ${p.variacion > 0 ? '+' : ''}${p.variacion.toFixed(1)}%`); }
+for (const e of [...(subenArg || []), ...(bajanArg || [])])
+  if (!cierreArg && Math.abs(e.variacion) >= 5) senal([' ' + sinTildes(e.nombre).split(' ')[0], ' ' + e.simbolo.toLowerCase().replace(/\d+$/, '')], 10 + Math.abs(e.variacion), `${e.nombre} ${e.variacion > 0 ? '+' : ''}${e.variacion.toFixed(1)}%`);
+for (const n of noticiasTodas) {
+  const t = paraBuscar(n.titulo);
+  const pegan = radar.filter(r => r.palabras.some(p => t.includes(p)));
+  if (!pegan.length) continue;
+  n.radar = Math.max(...pegan.map(r => r.fuerza));
+  n.puntaje += n.radar;
+}
+if (radar.length) console.log('Radar del mercado:', radar.map(r => r.motivo).join(' · '));
+// Para que Groq sepa qué se movió hoy (datos reales) y valore más las noticias que lo explican.
+globalThis.RADAR_TEXTO = radar.length ? 'LO QUE SE MOVIÓ HOY EN EL MERCADO (datos reales de las cotizaciones): ' + radar.map(r => r.motivo).join('; ') + '. Las noticias que explican estos movimientos son de lo más importante del día.' : '';
+
 // Para revisar el puntaje de todas las notas (no solo las elegidas): VOLCAR=1 node armar.mjs
 if (process.env.VOLCAR) await writeFile(new URL("./todas-las-notas.json", import.meta.url), JSON.stringify(noticiasTodas.map(({ pal, ...n }) => n).sort((a, b) => b.puntaje - a.puntaje), null, 1));
 
 // Por pestaña: sin la misma historia contada distinto y como mucho 2 del mismo tema.
 // Empresas y personas que suelen acaparar el día: como mucho 2 notas de cada una por pestaña.
 const PROTAGONISTAS = {
-  tesla: [' tesla', ' musk', ' spacex', ' starlink'], apple: [' apple', ' iphone'], nvidia: [' nvidia'], microsoft: [' microsoft'],
+  tesla: [' tesla', ' musk', ' spacex', ' starlink'], apple: [' apple', ' iphone'], nvidia: [' nvidia', ' jensen huang'], oro: [' el oro', ' del oro'], microsoft: [' microsoft'],
   amazon: [' amazon'], google: [' google', ' alphabet'], meta: [' meta '], openai: [' openai', ' chatgpt'], ypf: [' ypf'],
   mercadolibre: [' mercadolibre', ' mercado libre'], galicia: [' galicia'], trump: [' trump'], milei: [' milei'], caputo: [' caputo'],
   bitcoin: [' bitcoin', ' btc ', ' cripto', ' ethereum'], brasil: [' ibovespa', ' brasil', ' lula', ' bolsonaro', ' real brasileno'],
@@ -872,12 +943,13 @@ let candidatas = PESTAÑAS.flatMap(r => elegir(noticiasTodas.filter(n => n.regio
 // Lo que cuentan 6 medios o más en el último día va a Groq sí o sí, aunque las reglas lo hayan dejado abajo
 // (así se perdió la vuelta de Jensen Huang a Nvidia: 16 medios y 2 puntos por reglas).
 for (const n of noticiasTodas)
-  if (n.medios >= 6 && n.horas <= 24 && n.puntaje > -50 && !candidatas.includes(n)) candidatas.push(n);
+  if (((n.medios >= 6 && n.horas <= 24) || (n.radar && n.horas <= 24)) && n.puntaje > -50 && !candidatas.includes(n)) candidatas.push(n);
 // Toda nota tiene que tener foto: a las que no la traen se les busca en la página de la nota; si no hay, afuera.
 await Promise.all(candidatas.filter(n => !n.imagen).map(async n => { n.imagen = await buscarFoto(n.link); }));
 candidatas = candidatas.filter(n => n.imagen);
 await traducirResumenes(candidatas);
 candidatas = await pasarPorIA(candidatas);
+for (const n of candidatas) if (n.radar && n.ia != null) n.puntaje += Math.round(n.radar / 2);
 
 // Noticias fijadas (pedido de Marc): si Groq le da 85 o más a una noticia ("crítica" en el reglamento:
 // la Fed sube la tasa, una guerra que dispara el petróleo…), queda arriba de todo 24 horas, aunque salgan
@@ -935,6 +1007,16 @@ const ORDEN_PRECIOS = {
 };
 const lugar = (r, p) => { const i = (ORDEN_PRECIOS[r] || []).indexOf(p.nombre); return i === -1 ? 99 : i; };
 
+for (const lista of Object.values(elegidas)) {
+  if (lista.length < 3) continue;
+  const prot = protagonistas(lista[0]);
+  const pal0 = paraBuscar(lista[0].titulo);
+  const radar0 = radar.filter(r => r.palabras.some(p => pal0.includes(p)));
+  const relacionada = lista.findIndex((n, i) => i > 1 && (protagonistas(n).some(p => prot.includes(p)) ||
+    radar0.some(r => r.palabras.some(p => paraBuscar(n.titulo).includes(p)))));
+  if (relacionada > 1) lista.splice(1, 0, ...lista.splice(relacionada, 1));
+}
+
 const secciones = {};
 for (const r of PESTAÑAS) {
   const noticias = elegidas[r];
@@ -944,7 +1026,7 @@ for (const r of PESTAÑAS) {
     bajan: r === 'eeuu' ? bajan : r === 'argentina' ? bajanArg : [],
     cierre: r === 'argentina' ? cierreArg : r === 'mundo' ? cierreSectores : '',   // "Cierre del viernes 23/10" cuando no es de hoy
     sectores: r === 'mundo' ? listaSectores : [],
-    noticias: noticias.map(({ pal, region, resumenOriginal, tituloOriginal, debajoDelCorte, horas, ...n }) => n),
+    noticias: noticias.map(({ pal, region, resumenOriginal, tituloOriginal, debajoDelCorte, horas, radar, ...n }) => n),
   };
 }
 
